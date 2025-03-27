@@ -1,2 +1,3 @@
-# Parques-FUNDER
-Parques de Cañas, Liberia y Nicoya.
+# Árboles en los emplazamientos de Cañas, Liberia y Nicoya.
+
+Proyecto FUNDER
