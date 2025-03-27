@@ -23,7 +23,7 @@
             margin: 0;
         }
         </style>
-        <title>Especies de árboles en los emplazamientos del cantón central de Cañas, Guanacaste.</title>
+        <title>Especies arboreas en las principales áreas verdes públicas del casco central de Cañas, Guanacaste, 2025.</title>
     </head>
     <body>
         <div id="map">
@@ -44,8 +44,13 @@
         <script src="js/tailDT.js"></script>
 <script src="js/nouislider.min.js"></script>
 <script src="js/wNumb.js"></script>
-        <script src="data/Todos_los_parques_juntos_1.js"></script>
+        <script src="data/Especies_1.js"></script>
         <script>
+        var highlightLayer;
+        function highlightFeature(e) {
+            highlightLayer = e.target;
+            highlightLayer.openPopup();
+        }
         var map = L.map('map', {
             zoomControl:false, maxZoom:28, minZoom:1
         }).fitBounds([[10.422432633047599,-85.10475222621798],[10.439791436670555,-85.06667194763892]]);
@@ -87,7 +92,7 @@
             return this._div;
         };
         title.update = function () {
-            this._div.innerHTML = '<h2>Especies de árboles en los emplazamientos del cantón central de Cañas, Guanacaste.</h2>';
+            this._div.innerHTML = '<h2>Especies arboreas en las principales áreas verdes públicas del casco central de Cañas, Guanacaste, 2025.</h2>';
         };
         title.addTo(map);
         var abstract = new L.Control({'position':'topright'});
@@ -108,7 +113,7 @@
             abstract.show = function () {
                 this._div.classList.remove("abstract");
                 this._div.classList.add("abstractUncollapsed");
-                this._div.innerHTML = 'Por medio de este mapa usted puede acceder al nombre científico y nombre común de los árboles identificados en los diferentes emplazamientos del cantón central de Cañas<br /><br />Proyecto FUNDER<br />Vivero Forestal de la Universidad Nacional de Costa Rica<br />Municipalidad de Cañas';
+                this._div.innerHTML = 'Por medio de este mapa usted puede conocer las especies arbóreas (nombre científico y común) presentes en las principales áreas verdes públicas del casco central de Cañas, Guanacaste. <br /><br />Proyecto Gestión del arbolado Urbano en las Ciudades de Nicoya, Cañas y Liberia para favorecer el bienestar de los habitantes.<br /><br />Centro Mesoamericano de Desarrollo Sostenible del Trópico Seco, Universidad Nacional.<br />Programa de Biodiversidad Forestal y Bioeconomía, Universidad Nacional.<br />Municipalidad de Cañas<br /><br />Elaborado por: Ing. José Felipe Novo Durón. 2025.';
         };
         abstract.addTo(map);
         var zoomControl = L.control.zoom({
@@ -141,27 +146,39 @@
         });
         layer_GoogleSatellite_0;
         map.addLayer(layer_GoogleSatellite_0);
-        function pop_Todos_los_parques_juntos_1(feature, layer) {
+        function pop_Especies_1(feature, layer) {
+            layer.on({
+                mouseout: function(e) {
+                    if (typeof layer.closePopup == 'function') {
+                        layer.closePopup();
+                    } else {
+                        layer.eachLayer(function(feature){
+                            feature.closePopup()
+                        });
+                    }
+                },
+                mouseover: highlightFeature,
+            });
             var popupContent = '<table>\
                     <tr>\
                         <th scope="row">Ciudad:</th>\
                         <td>' + (feature.properties['Ciudad'] !== null ? autolinker.link(String(feature.properties['Ciudad']).replace(/'/g, '\'').toLocaleString()) : '') + '</td>\
                     </tr>\
                     <tr>\
-                        <th scope="row">Nombre del emplazamiento</th>\
-                        <td>' + (feature.properties['Nombre del emplazamiento'] !== null ? autolinker.link(String(feature.properties['Nombre del emplazamiento']).replace(/'/g, '\'').toLocaleString()) : '') + '</td>\
+                        <th scope="row">Área verde</th>\
+                        <td>' + (feature.properties['Área verde'] !== null ? autolinker.link(String(feature.properties['Área verde']).replace(/'/g, '\'').toLocaleString()) : '') + '</td>\
                     </tr>\
                     <tr>\
                         <th scope="row">Especie:</th>\
                         <td>' + (feature.properties['Especie'] !== null ? autolinker.link(String(feature.properties['Especie']).replace(/'/g, '\'').toLocaleString()) : '') + '</td>\
                     </tr>\
                     <tr>\
-                        <th scope="row">Nombre común</th>\
+                        <th scope="row">Nombre común:</th>\
                         <td>' + (feature.properties['Nombre común'] !== null ? autolinker.link(String(feature.properties['Nombre común']).replace(/'/g, '\'').toLocaleString()) : '') + '</td>\
                     </tr>\
                     <tr>\
-                        <th scope="row">file_path</th>\
-                        <td>' + (feature.properties['file_path'] !== null ? '<img src="images/' + String(feature.properties['file_path']).replace(/[\\/:]/g, '_').trim().replace(/'/g, '\'').replace(/"/g, '&quot;') + '">' : '') + '</td>\
+                        <th scope="row">Imagen:</th>\
+                        <td>' + (feature.properties['Imagen'] !== null ? autolinker.link(String(feature.properties['Imagen']).replace(/'/g, '\'').toLocaleString()) : '') + '</td>\
                     </tr>\
                 </table>';
             var content = removeEmptyRowsFromPopupContent(popupContent, feature);
@@ -171,11 +188,11 @@
 			layer.bindPopup(content, { maxHeight: 400 });
         }
 
-        function style_Todos_los_parques_juntos_1_0(feature) {
+        function style_Especies_1_0(feature) {
             switch(String(feature.properties['Especie'])) {
                 case 'Acacia mangium':
                     return {
-                pane: 'pane_Todos_los_parques_juntos_1',
+                pane: 'pane_Especies_1',
                 radius: 4.0,
                 opacity: 1,
                 color: 'rgba(35,35,35,1.0)',
@@ -185,13 +202,13 @@
                 weight: 1,
                 fill: true,
                 fillOpacity: 1,
-                fillColor: 'rgba(232,111,188,1.0)',
+                fillColor: 'rgba(165,126,234,1.0)',
                 interactive: true,
             }
                     break;
                 case 'Acaciella angustissima':
                     return {
-                pane: 'pane_Todos_los_parques_juntos_1',
+                pane: 'pane_Especies_1',
                 radius: 4.0,
                 opacity: 1,
                 color: 'rgba(35,35,35,1.0)',
@@ -201,13 +218,13 @@
                 weight: 1,
                 fill: true,
                 fillOpacity: 1,
-                fillColor: 'rgba(229,197,101,1.0)',
+                fillColor: 'rgba(209,215,28,1.0)',
                 interactive: true,
             }
                     break;
                 case 'Adonidia merrillii':
                     return {
-                pane: 'pane_Todos_los_parques_juntos_1',
+                pane: 'pane_Especies_1',
                 radius: 4.0,
                 opacity: 1,
                 color: 'rgba(35,35,35,1.0)',
@@ -217,13 +234,13 @@
                 weight: 1,
                 fill: true,
                 fillOpacity: 1,
-                fillColor: 'rgba(216,52,93,1.0)',
+                fillColor: 'rgba(175,226,123,1.0)',
                 interactive: true,
             }
                     break;
                 case 'Anacardium occidentale':
                     return {
-                pane: 'pane_Todos_los_parques_juntos_1',
+                pane: 'pane_Especies_1',
                 radius: 4.0,
                 opacity: 1,
                 color: 'rgba(35,35,35,1.0)',
@@ -233,13 +250,13 @@
                 weight: 1,
                 fill: true,
                 fillOpacity: 1,
-                fillColor: 'rgba(153,206,120,1.0)',
+                fillColor: 'rgba(238,132,156,1.0)',
                 interactive: true,
             }
                     break;
                 case 'Andira inermis':
                     return {
-                pane: 'pane_Todos_los_parques_juntos_1',
+                pane: 'pane_Especies_1',
                 radius: 4.0,
                 opacity: 1,
                 color: 'rgba(35,35,35,1.0)',
@@ -249,13 +266,13 @@
                 weight: 1,
                 fill: true,
                 fillOpacity: 1,
-                fillColor: 'rgba(214,211,34,1.0)',
+                fillColor: 'rgba(24,207,158,1.0)',
                 interactive: true,
             }
                     break;
                 case 'Annona muricata':
                     return {
-                pane: 'pane_Todos_los_parques_juntos_1',
+                pane: 'pane_Especies_1',
                 radius: 4.0,
                 opacity: 1,
                 color: 'rgba(35,35,35,1.0)',
@@ -265,13 +282,13 @@
                 weight: 1,
                 fill: true,
                 fillOpacity: 1,
-                fillColor: 'rgba(122,60,202,1.0)',
+                fillColor: 'rgba(221,21,174,1.0)',
                 interactive: true,
             }
                     break;
                 case 'Astronium graveolens':
                     return {
-                pane: 'pane_Todos_los_parques_juntos_1',
+                pane: 'pane_Especies_1',
                 radius: 4.0,
                 opacity: 1,
                 color: 'rgba(35,35,35,1.0)',
@@ -281,13 +298,13 @@
                 weight: 1,
                 fill: true,
                 fillOpacity: 1,
-                fillColor: 'rgba(204,22,25,1.0)',
+                fillColor: 'rgba(213,171,94,1.0)',
                 interactive: true,
             }
                     break;
                 case 'Azadirachta indica':
                     return {
-                pane: 'pane_Todos_los_parques_juntos_1',
+                pane: 'pane_Especies_1',
                 radius: 4.0,
                 opacity: 1,
                 color: 'rgba(35,35,35,1.0)',
@@ -297,13 +314,13 @@
                 weight: 1,
                 fill: true,
                 fillOpacity: 1,
-                fillColor: 'rgba(61,96,234,1.0)',
+                fillColor: 'rgba(98,228,51,1.0)',
                 interactive: true,
             }
                     break;
                 case 'Bunchosia sp.':
                     return {
-                pane: 'pane_Todos_los_parques_juntos_1',
+                pane: 'pane_Especies_1',
                 radius: 4.0,
                 opacity: 1,
                 color: 'rgba(35,35,35,1.0)',
@@ -313,13 +330,13 @@
                 weight: 1,
                 fill: true,
                 fillOpacity: 1,
-                fillColor: 'rgba(235,117,21,1.0)',
+                fillColor: 'rgba(148,37,221,1.0)',
                 interactive: true,
             }
                     break;
                 case 'Byrsonima crassifolia':
                     return {
-                pane: 'pane_Todos_los_parques_juntos_1',
+                pane: 'pane_Especies_1',
                 radius: 4.0,
                 opacity: 1,
                 color: 'rgba(35,35,35,1.0)',
@@ -329,13 +346,13 @@
                 weight: 1,
                 fill: true,
                 fillOpacity: 1,
-                fillColor: 'rgba(48,206,34,1.0)',
+                fillColor: 'rgba(211,72,224,1.0)',
                 interactive: true,
             }
                     break;
                 case 'Caesalpinia pulcherrima':
                     return {
-                pane: 'pane_Todos_los_parques_juntos_1',
+                pane: 'pane_Especies_1',
                 radius: 4.0,
                 opacity: 1,
                 color: 'rgba(35,35,35,1.0)',
@@ -345,13 +362,13 @@
                 weight: 1,
                 fill: true,
                 fillOpacity: 1,
-                fillColor: 'rgba(205,235,35,1.0)',
+                fillColor: 'rgba(13,211,53,1.0)',
                 interactive: true,
             }
                     break;
                 case 'Calycophyllum candidissimum':
                     return {
-                pane: 'pane_Todos_los_parques_juntos_1',
+                pane: 'pane_Especies_1',
                 radius: 4.0,
                 opacity: 1,
                 color: 'rgba(35,35,35,1.0)',
@@ -361,13 +378,13 @@
                 weight: 1,
                 fill: true,
                 fillOpacity: 1,
-                fillColor: 'rgba(142,240,56,1.0)',
+                fillColor: 'rgba(237,111,99,1.0)',
                 interactive: true,
             }
                     break;
                 case 'Cascabela thevetia':
                     return {
-                pane: 'pane_Todos_los_parques_juntos_1',
+                pane: 'pane_Especies_1',
                 radius: 4.0,
                 opacity: 1,
                 color: 'rgba(35,35,35,1.0)',
@@ -377,13 +394,13 @@
                 weight: 1,
                 fill: true,
                 fillOpacity: 1,
-                fillColor: 'rgba(158,228,137,1.0)',
+                fillColor: 'rgba(61,209,41,1.0)',
                 interactive: true,
             }
                     break;
                 case 'Cassia fistula':
                     return {
-                pane: 'pane_Todos_los_parques_juntos_1',
+                pane: 'pane_Especies_1',
                 radius: 4.0,
                 opacity: 1,
                 color: 'rgba(35,35,35,1.0)',
@@ -393,13 +410,13 @@
                 weight: 1,
                 fill: true,
                 fillOpacity: 1,
-                fillColor: 'rgba(205,23,83,1.0)',
+                fillColor: 'rgba(197,216,53,1.0)',
                 interactive: true,
             }
                     break;
                 case 'Cassia grandis':
                     return {
-                pane: 'pane_Todos_los_parques_juntos_1',
+                pane: 'pane_Especies_1',
                 radius: 4.0,
                 opacity: 1,
                 color: 'rgba(35,35,35,1.0)',
@@ -409,13 +426,13 @@
                 weight: 1,
                 fill: true,
                 fillOpacity: 1,
-                fillColor: 'rgba(202,136,66,1.0)',
+                fillColor: 'rgba(218,64,146,1.0)',
                 interactive: true,
             }
                     break;
                 case 'Cedrela odorata':
                     return {
-                pane: 'pane_Todos_los_parques_juntos_1',
+                pane: 'pane_Especies_1',
                 radius: 4.0,
                 opacity: 1,
                 color: 'rgba(35,35,35,1.0)',
@@ -425,13 +442,13 @@
                 weight: 1,
                 fill: true,
                 fillOpacity: 1,
-                fillColor: 'rgba(231,156,44,1.0)',
+                fillColor: 'rgba(106,234,38,1.0)',
                 interactive: true,
             }
                     break;
                 case 'Ceiba pentandra':
                     return {
-                pane: 'pane_Todos_los_parques_juntos_1',
+                pane: 'pane_Especies_1',
                 radius: 4.0,
                 opacity: 1,
                 color: 'rgba(35,35,35,1.0)',
@@ -441,13 +458,13 @@
                 weight: 1,
                 fill: true,
                 fillOpacity: 1,
-                fillColor: 'rgba(197,60,228,1.0)',
+                fillColor: 'rgba(127,129,228,1.0)',
                 interactive: true,
             }
                     break;
                 case 'Cenostigma eriostachys':
                     return {
-                pane: 'pane_Todos_los_parques_juntos_1',
+                pane: 'pane_Especies_1',
                 radius: 4.0,
                 opacity: 1,
                 color: 'rgba(35,35,35,1.0)',
@@ -457,13 +474,13 @@
                 weight: 1,
                 fill: true,
                 fillOpacity: 1,
-                fillColor: 'rgba(215,13,158,1.0)',
+                fillColor: 'rgba(216,206,13,1.0)',
                 interactive: true,
             }
                     break;
                 case 'Chrysophyllum cainito':
                     return {
-                pane: 'pane_Todos_los_parques_juntos_1',
+                pane: 'pane_Especies_1',
                 radius: 4.0,
                 opacity: 1,
                 color: 'rgba(35,35,35,1.0)',
@@ -473,13 +490,13 @@
                 weight: 1,
                 fill: true,
                 fillOpacity: 1,
-                fillColor: 'rgba(219,51,25,1.0)',
+                fillColor: 'rgba(162,78,201,1.0)',
                 interactive: true,
             }
                     break;
                 case 'Citrus spp.':
                     return {
-                pane: 'pane_Todos_los_parques_juntos_1',
+                pane: 'pane_Especies_1',
                 radius: 4.0,
                 opacity: 1,
                 color: 'rgba(35,35,35,1.0)',
@@ -489,13 +506,13 @@
                 weight: 1,
                 fill: true,
                 fillOpacity: 1,
-                fillColor: 'rgba(110,212,63,1.0)',
+                fillColor: 'rgba(146,199,240,1.0)',
                 interactive: true,
             }
                     break;
                 case 'Cnidoscolus aconitifolius':
                     return {
-                pane: 'pane_Todos_los_parques_juntos_1',
+                pane: 'pane_Especies_1',
                 radius: 4.0,
                 opacity: 1,
                 color: 'rgba(35,35,35,1.0)',
@@ -505,13 +522,13 @@
                 weight: 1,
                 fill: true,
                 fillOpacity: 1,
-                fillColor: 'rgba(53,234,68,1.0)',
+                fillColor: 'rgba(240,109,220,1.0)',
                 interactive: true,
             }
                     break;
                 case 'Coccoloba caracasana':
                     return {
-                pane: 'pane_Todos_los_parques_juntos_1',
+                pane: 'pane_Especies_1',
                 radius: 4.0,
                 opacity: 1,
                 color: 'rgba(35,35,35,1.0)',
@@ -521,13 +538,13 @@
                 weight: 1,
                 fill: true,
                 fillOpacity: 1,
-                fillColor: 'rgba(46,66,214,1.0)',
+                fillColor: 'rgba(223,206,75,1.0)',
                 interactive: true,
             }
                     break;
                 case 'Coccoloba uvifera':
                     return {
-                pane: 'pane_Todos_los_parques_juntos_1',
+                pane: 'pane_Especies_1',
                 radius: 4.0,
                 opacity: 1,
                 color: 'rgba(35,35,35,1.0)',
@@ -537,13 +554,13 @@
                 weight: 1,
                 fill: true,
                 fillOpacity: 1,
-                fillColor: 'rgba(107,219,133,1.0)',
+                fillColor: 'rgba(209,73,200,1.0)',
                 interactive: true,
             }
                     break;
                 case 'Cocos nucifera':
                     return {
-                pane: 'pane_Todos_los_parques_juntos_1',
+                pane: 'pane_Especies_1',
                 radius: 4.0,
                 opacity: 1,
                 color: 'rgba(35,35,35,1.0)',
@@ -553,13 +570,13 @@
                 weight: 1,
                 fill: true,
                 fillOpacity: 1,
-                fillColor: 'rgba(21,14,235,1.0)',
+                fillColor: 'rgba(214,147,85,1.0)',
                 interactive: true,
             }
                     break;
                 case 'Cojoba arborea':
                     return {
-                pane: 'pane_Todos_los_parques_juntos_1',
+                pane: 'pane_Especies_1',
                 radius: 4.0,
                 opacity: 1,
                 color: 'rgba(35,35,35,1.0)',
@@ -569,13 +586,13 @@
                 weight: 1,
                 fill: true,
                 fillOpacity: 1,
-                fillColor: 'rgba(230,206,87,1.0)',
+                fillColor: 'rgba(214,53,115,1.0)',
                 interactive: true,
             }
                     break;
                 case 'Cordia dentata':
                     return {
-                pane: 'pane_Todos_los_parques_juntos_1',
+                pane: 'pane_Especies_1',
                 radius: 4.0,
                 opacity: 1,
                 color: 'rgba(35,35,35,1.0)',
@@ -585,13 +602,13 @@
                 weight: 1,
                 fill: true,
                 fillOpacity: 1,
-                fillColor: 'rgba(120,77,239,1.0)',
+                fillColor: 'rgba(202,159,51,1.0)',
                 interactive: true,
             }
                     break;
                 case 'Crescentia alata':
                     return {
-                pane: 'pane_Todos_los_parques_juntos_1',
+                pane: 'pane_Especies_1',
                 radius: 4.0,
                 opacity: 1,
                 color: 'rgba(35,35,35,1.0)',
@@ -601,13 +618,13 @@
                 weight: 1,
                 fill: true,
                 fillOpacity: 1,
-                fillColor: 'rgba(208,71,16,1.0)',
+                fillColor: 'rgba(225,155,134,1.0)',
                 interactive: true,
             }
                     break;
                 case 'Crescentia cujete':
                     return {
-                pane: 'pane_Todos_los_parques_juntos_1',
+                pane: 'pane_Especies_1',
                 radius: 4.0,
                 opacity: 1,
                 color: 'rgba(35,35,35,1.0)',
@@ -617,13 +634,13 @@
                 weight: 1,
                 fill: true,
                 fillOpacity: 1,
-                fillColor: 'rgba(21,232,119,1.0)',
+                fillColor: 'rgba(177,236,68,1.0)',
                 interactive: true,
             }
                     break;
                 case 'Dalbergia retusa':
                     return {
-                pane: 'pane_Todos_los_parques_juntos_1',
+                pane: 'pane_Especies_1',
                 radius: 4.0,
                 opacity: 1,
                 color: 'rgba(35,35,35,1.0)',
@@ -633,13 +650,13 @@
                 weight: 1,
                 fill: true,
                 fillOpacity: 1,
-                fillColor: 'rgba(121,108,219,1.0)',
+                fillColor: 'rgba(209,81,171,1.0)',
                 interactive: true,
             }
                     break;
                 case 'Delonix regia':
                     return {
-                pane: 'pane_Todos_los_parques_juntos_1',
+                pane: 'pane_Especies_1',
                 radius: 4.0,
                 opacity: 1,
                 color: 'rgba(35,35,35,1.0)',
@@ -649,13 +666,13 @@
                 weight: 1,
                 fill: true,
                 fillOpacity: 1,
-                fillColor: 'rgba(62,131,221,1.0)',
+                fillColor: 'rgba(79,237,73,1.0)',
                 interactive: true,
             }
                     break;
                 case 'Diphysa americana':
                     return {
-                pane: 'pane_Todos_los_parques_juntos_1',
+                pane: 'pane_Especies_1',
                 radius: 4.0,
                 opacity: 1,
                 color: 'rgba(35,35,35,1.0)',
@@ -665,13 +682,13 @@
                 weight: 1,
                 fill: true,
                 fillOpacity: 1,
-                fillColor: 'rgba(216,122,226,1.0)',
+                fillColor: 'rgba(233,110,233,1.0)',
                 interactive: true,
             }
                     break;
                 case 'Enterolobium cyclocarpum':
                     return {
-                pane: 'pane_Todos_los_parques_juntos_1',
+                pane: 'pane_Especies_1',
                 radius: 4.0,
                 opacity: 1,
                 color: 'rgba(35,35,35,1.0)',
@@ -681,13 +698,13 @@
                 weight: 1,
                 fill: true,
                 fillOpacity: 1,
-                fillColor: 'rgba(222,107,40,1.0)',
+                fillColor: 'rgba(238,165,112,1.0)',
                 interactive: true,
             }
                     break;
                 case 'Erythrina variegata':
                     return {
-                pane: 'pane_Todos_los_parques_juntos_1',
+                pane: 'pane_Especies_1',
                 radius: 4.0,
                 opacity: 1,
                 color: 'rgba(35,35,35,1.0)',
@@ -697,13 +714,13 @@
                 weight: 1,
                 fill: true,
                 fillOpacity: 1,
-                fillColor: 'rgba(148,99,237,1.0)',
+                fillColor: 'rgba(91,228,150,1.0)',
                 interactive: true,
             }
                     break;
                 case 'Ficus benjamina':
                     return {
-                pane: 'pane_Todos_los_parques_juntos_1',
+                pane: 'pane_Especies_1',
                 radius: 4.0,
                 opacity: 1,
                 color: 'rgba(35,35,35,1.0)',
@@ -713,13 +730,13 @@
                 weight: 1,
                 fill: true,
                 fillOpacity: 1,
-                fillColor: 'rgba(238,66,138,1.0)',
+                fillColor: 'rgba(139,115,226,1.0)',
                 interactive: true,
             }
                     break;
                 case 'Ficus cotinifolia':
                     return {
-                pane: 'pane_Todos_los_parques_juntos_1',
+                pane: 'pane_Especies_1',
                 radius: 4.0,
                 opacity: 1,
                 color: 'rgba(35,35,35,1.0)',
@@ -729,13 +746,13 @@
                 weight: 1,
                 fill: true,
                 fillOpacity: 1,
-                fillColor: 'rgba(197,30,203,1.0)',
+                fillColor: 'rgba(209,38,63,1.0)',
                 interactive: true,
             }
                     break;
                 case 'Ficus goldmanii':
                     return {
-                pane: 'pane_Todos_los_parques_juntos_1',
+                pane: 'pane_Especies_1',
                 radius: 4.0,
                 opacity: 1,
                 color: 'rgba(35,35,35,1.0)',
@@ -745,13 +762,13 @@
                 weight: 1,
                 fill: true,
                 fillOpacity: 1,
-                fillColor: 'rgba(40,46,223,1.0)',
+                fillColor: 'rgba(84,171,206,1.0)',
                 interactive: true,
             }
                     break;
                 case 'Ficus sp.':
                     return {
-                pane: 'pane_Todos_los_parques_juntos_1',
+                pane: 'pane_Especies_1',
                 radius: 4.0,
                 opacity: 1,
                 color: 'rgba(35,35,35,1.0)',
@@ -761,13 +778,13 @@
                 weight: 1,
                 fill: true,
                 fillOpacity: 1,
-                fillColor: 'rgba(123,185,227,1.0)',
+                fillColor: 'rgba(17,233,43,1.0)',
                 interactive: true,
             }
                     break;
                 case 'Gliricidia sepium':
                     return {
-                pane: 'pane_Todos_los_parques_juntos_1',
+                pane: 'pane_Especies_1',
                 radius: 4.0,
                 opacity: 1,
                 color: 'rgba(35,35,35,1.0)',
@@ -777,13 +794,13 @@
                 weight: 1,
                 fill: true,
                 fillOpacity: 1,
-                fillColor: 'rgba(209,194,26,1.0)',
+                fillColor: 'rgba(143,72,205,1.0)',
                 interactive: true,
             }
                     break;
                 case 'Guazuma ulmifolia':
                     return {
-                pane: 'pane_Todos_los_parques_juntos_1',
+                pane: 'pane_Especies_1',
                 radius: 4.0,
                 opacity: 1,
                 color: 'rgba(35,35,35,1.0)',
@@ -793,13 +810,13 @@
                 weight: 1,
                 fill: true,
                 fillOpacity: 1,
-                fillColor: 'rgba(213,65,92,1.0)',
+                fillColor: 'rgba(228,90,155,1.0)',
                 interactive: true,
             }
                     break;
                 case 'Haematoxylum brasiletto':
                     return {
-                pane: 'pane_Todos_los_parques_juntos_1',
+                pane: 'pane_Especies_1',
                 radius: 4.0,
                 opacity: 1,
                 color: 'rgba(35,35,35,1.0)',
@@ -809,13 +826,13 @@
                 weight: 1,
                 fill: true,
                 fillOpacity: 1,
-                fillColor: 'rgba(23,227,149,1.0)',
+                fillColor: 'rgba(202,177,78,1.0)',
                 interactive: true,
             }
                     break;
                 case 'Handroanthus impetiginosus':
                     return {
-                pane: 'pane_Todos_los_parques_juntos_1',
+                pane: 'pane_Especies_1',
                 radius: 4.0,
                 opacity: 1,
                 color: 'rgba(35,35,35,1.0)',
@@ -825,13 +842,13 @@
                 weight: 1,
                 fill: true,
                 fillOpacity: 1,
-                fillColor: 'rgba(171,240,86,1.0)',
+                fillColor: 'rgba(126,162,234,1.0)',
                 interactive: true,
             }
                     break;
                 case 'Handroanthus ochraceus':
                     return {
-                pane: 'pane_Todos_los_parques_juntos_1',
+                pane: 'pane_Especies_1',
                 radius: 4.0,
                 opacity: 1,
                 color: 'rgba(35,35,35,1.0)',
@@ -841,13 +858,13 @@
                 weight: 1,
                 fill: true,
                 fillOpacity: 1,
-                fillColor: 'rgba(182,214,107,1.0)',
+                fillColor: 'rgba(85,66,209,1.0)',
                 interactive: true,
             }
                     break;
                 case 'Hura crepitans':
                     return {
-                pane: 'pane_Todos_los_parques_juntos_1',
+                pane: 'pane_Especies_1',
                 radius: 4.0,
                 opacity: 1,
                 color: 'rgba(35,35,35,1.0)',
@@ -857,13 +874,13 @@
                 weight: 1,
                 fill: true,
                 fillOpacity: 1,
-                fillColor: 'rgba(129,159,215,1.0)',
+                fillColor: 'rgba(236,131,138,1.0)',
                 interactive: true,
             }
                     break;
                 case 'Inga vera':
                     return {
-                pane: 'pane_Todos_los_parques_juntos_1',
+                pane: 'pane_Especies_1',
                 radius: 4.0,
                 opacity: 1,
                 color: 'rgba(35,35,35,1.0)',
@@ -873,13 +890,13 @@
                 weight: 1,
                 fill: true,
                 fillOpacity: 1,
-                fillColor: 'rgba(110,214,207,1.0)',
+                fillColor: 'rgba(115,174,209,1.0)',
                 interactive: true,
             }
                     break;
                 case 'Jacaranda mimosifolia':
                     return {
-                pane: 'pane_Todos_los_parques_juntos_1',
+                pane: 'pane_Especies_1',
                 radius: 4.0,
                 opacity: 1,
                 color: 'rgba(35,35,35,1.0)',
@@ -889,13 +906,13 @@
                 weight: 1,
                 fill: true,
                 fillOpacity: 1,
-                fillColor: 'rgba(212,225,24,1.0)',
+                fillColor: 'rgba(133,90,232,1.0)',
                 interactive: true,
             }
                     break;
                 case 'Leucaena leucocephala':
                     return {
-                pane: 'pane_Todos_los_parques_juntos_1',
+                pane: 'pane_Especies_1',
                 radius: 4.0,
                 opacity: 1,
                 color: 'rgba(35,35,35,1.0)',
@@ -905,13 +922,13 @@
                 weight: 1,
                 fill: true,
                 fillOpacity: 1,
-                fillColor: 'rgba(192,119,218,1.0)',
+                fillColor: 'rgba(71,225,125,1.0)',
                 interactive: true,
             }
                     break;
                 case 'Lonchocarpus felipei':
                     return {
-                pane: 'pane_Todos_los_parques_juntos_1',
+                pane: 'pane_Especies_1',
                 radius: 4.0,
                 opacity: 1,
                 color: 'rgba(35,35,35,1.0)',
@@ -921,13 +938,13 @@
                 weight: 1,
                 fill: true,
                 fillOpacity: 1,
-                fillColor: 'rgba(30,228,59,1.0)',
+                fillColor: 'rgba(52,41,208,1.0)',
                 interactive: true,
             }
                     break;
                 case 'Mangifera indica':
                     return {
-                pane: 'pane_Todos_los_parques_juntos_1',
+                pane: 'pane_Especies_1',
                 radius: 4.0,
                 opacity: 1,
                 color: 'rgba(35,35,35,1.0)',
@@ -937,13 +954,13 @@
                 weight: 1,
                 fill: true,
                 fillOpacity: 1,
-                fillColor: 'rgba(134,226,206,1.0)',
+                fillColor: 'rgba(12,203,168,1.0)',
                 interactive: true,
             }
                     break;
                 case 'Melicoccus bijugatus':
                     return {
-                pane: 'pane_Todos_los_parques_juntos_1',
+                pane: 'pane_Especies_1',
                 radius: 4.0,
                 opacity: 1,
                 color: 'rgba(35,35,35,1.0)',
@@ -953,13 +970,13 @@
                 weight: 1,
                 fill: true,
                 fillOpacity: 1,
-                fillColor: 'rgba(217,53,195,1.0)',
+                fillColor: 'rgba(178,200,82,1.0)',
                 interactive: true,
             }
                     break;
                 case 'Moringa oleifera':
                     return {
-                pane: 'pane_Todos_los_parques_juntos_1',
+                pane: 'pane_Especies_1',
                 radius: 4.0,
                 opacity: 1,
                 color: 'rgba(35,35,35,1.0)',
@@ -969,13 +986,13 @@
                 weight: 1,
                 fill: true,
                 fillOpacity: 1,
-                fillColor: 'rgba(116,209,167,1.0)',
+                fillColor: 'rgba(51,200,17,1.0)',
                 interactive: true,
             }
                     break;
                 case 'Muerto':
                     return {
-                pane: 'pane_Todos_los_parques_juntos_1',
+                pane: 'pane_Especies_1',
                 radius: 4.0,
                 opacity: 1,
                 color: 'rgba(35,35,35,1.0)',
@@ -985,13 +1002,13 @@
                 weight: 1,
                 fill: true,
                 fillOpacity: 1,
-                fillColor: 'rgba(211,74,204,1.0)',
+                fillColor: 'rgba(69,237,114,1.0)',
                 interactive: true,
             }
                     break;
                 case 'Muntingia calabura':
                     return {
-                pane: 'pane_Todos_los_parques_juntos_1',
+                pane: 'pane_Especies_1',
                 radius: 4.0,
                 opacity: 1,
                 color: 'rgba(35,35,35,1.0)',
@@ -1001,13 +1018,13 @@
                 weight: 1,
                 fill: true,
                 fillOpacity: 1,
-                fillColor: 'rgba(123,173,220,1.0)',
+                fillColor: 'rgba(57,207,230,1.0)',
                 interactive: true,
             }
                     break;
                 case 'Platymiscium parviflorum':
                     return {
-                pane: 'pane_Todos_los_parques_juntos_1',
+                pane: 'pane_Especies_1',
                 radius: 4.0,
                 opacity: 1,
                 color: 'rgba(35,35,35,1.0)',
@@ -1017,13 +1034,13 @@
                 weight: 1,
                 fill: true,
                 fillOpacity: 1,
-                fillColor: 'rgba(95,230,138,1.0)',
+                fillColor: 'rgba(111,205,196,1.0)',
                 interactive: true,
             }
                     break;
                 case 'Platymiscium pinnatum':
                     return {
-                pane: 'pane_Todos_los_parques_juntos_1',
+                pane: 'pane_Especies_1',
                 radius: 4.0,
                 opacity: 1,
                 color: 'rgba(35,35,35,1.0)',
@@ -1033,13 +1050,13 @@
                 weight: 1,
                 fill: true,
                 fillOpacity: 1,
-                fillColor: 'rgba(25,153,212,1.0)',
+                fillColor: 'rgba(89,223,230,1.0)',
                 interactive: true,
             }
                     break;
                 case 'Plumeria rubra':
                     return {
-                pane: 'pane_Todos_los_parques_juntos_1',
+                pane: 'pane_Especies_1',
                 radius: 4.0,
                 opacity: 1,
                 color: 'rgba(35,35,35,1.0)',
@@ -1049,13 +1066,13 @@
                 weight: 1,
                 fill: true,
                 fillOpacity: 1,
-                fillColor: 'rgba(99,70,217,1.0)',
+                fillColor: 'rgba(35,53,216,1.0)',
                 interactive: true,
             }
                     break;
                 case 'Pochota fendleri':
                     return {
-                pane: 'pane_Todos_los_parques_juntos_1',
+                pane: 'pane_Especies_1',
                 radius: 4.0,
                 opacity: 1,
                 color: 'rgba(35,35,35,1.0)',
@@ -1065,13 +1082,13 @@
                 weight: 1,
                 fill: true,
                 fillOpacity: 1,
-                fillColor: 'rgba(126,208,196,1.0)',
+                fillColor: 'rgba(215,115,95,1.0)',
                 interactive: true,
             }
                     break;
                 case 'Pseudalbizzia adinocephala':
                     return {
-                pane: 'pane_Todos_los_parques_juntos_1',
+                pane: 'pane_Especies_1',
                 radius: 4.0,
                 opacity: 1,
                 color: 'rgba(35,35,35,1.0)',
@@ -1081,13 +1098,13 @@
                 weight: 1,
                 fill: true,
                 fillOpacity: 1,
-                fillColor: 'rgba(163,25,232,1.0)',
+                fillColor: 'rgba(205,232,131,1.0)',
                 interactive: true,
             }
                     break;
                 case 'Pseudalbizzia niopoides':
                     return {
-                pane: 'pane_Todos_los_parques_juntos_1',
+                pane: 'pane_Especies_1',
                 radius: 4.0,
                 opacity: 1,
                 color: 'rgba(35,35,35,1.0)',
@@ -1097,13 +1114,13 @@
                 weight: 1,
                 fill: true,
                 fillOpacity: 1,
-                fillColor: 'rgba(183,226,114,1.0)',
+                fillColor: 'rgba(151,214,107,1.0)',
                 interactive: true,
             }
                     break;
                 case 'Pseudobombax septenatum':
                     return {
-                pane: 'pane_Todos_los_parques_juntos_1',
+                pane: 'pane_Especies_1',
                 radius: 4.0,
                 opacity: 1,
                 color: 'rgba(35,35,35,1.0)',
@@ -1113,13 +1130,13 @@
                 weight: 1,
                 fill: true,
                 fillOpacity: 1,
-                fillColor: 'rgba(209,61,179,1.0)',
+                fillColor: 'rgba(46,122,204,1.0)',
                 interactive: true,
             }
                     break;
                 case 'Pseudosamanea guachapele':
                     return {
-                pane: 'pane_Todos_los_parques_juntos_1',
+                pane: 'pane_Especies_1',
                 radius: 4.0,
                 opacity: 1,
                 color: 'rgba(35,35,35,1.0)',
@@ -1129,13 +1146,13 @@
                 weight: 1,
                 fill: true,
                 fillOpacity: 1,
-                fillColor: 'rgba(240,109,102,1.0)',
+                fillColor: 'rgba(184,122,203,1.0)',
                 interactive: true,
             }
                     break;
                 case 'Pterocarpus orbiculatus':
                     return {
-                pane: 'pane_Todos_los_parques_juntos_1',
+                pane: 'pane_Especies_1',
                 radius: 4.0,
                 opacity: 1,
                 color: 'rgba(35,35,35,1.0)',
@@ -1145,13 +1162,13 @@
                 weight: 1,
                 fill: true,
                 fillOpacity: 1,
-                fillColor: 'rgba(63,204,63,1.0)',
+                fillColor: 'rgba(215,92,35,1.0)',
                 interactive: true,
             }
                     break;
                 case 'Samanea saman':
                     return {
-                pane: 'pane_Todos_los_parques_juntos_1',
+                pane: 'pane_Especies_1',
                 radius: 4.0,
                 opacity: 1,
                 color: 'rgba(35,35,35,1.0)',
@@ -1161,13 +1178,13 @@
                 weight: 1,
                 fill: true,
                 fillOpacity: 1,
-                fillColor: 'rgba(20,175,226,1.0)',
+                fillColor: 'rgba(31,202,145,1.0)',
                 interactive: true,
             }
                     break;
                 case 'Schizolobium parahyba':
                     return {
-                pane: 'pane_Todos_los_parques_juntos_1',
+                pane: 'pane_Especies_1',
                 radius: 4.0,
                 opacity: 1,
                 color: 'rgba(35,35,35,1.0)',
@@ -1177,13 +1194,13 @@
                 weight: 1,
                 fill: true,
                 fillOpacity: 1,
-                fillColor: 'rgba(206,17,108,1.0)',
+                fillColor: 'rgba(134,55,232,1.0)',
                 interactive: true,
             }
                     break;
                 case 'Senna atomaria':
                     return {
-                pane: 'pane_Todos_los_parques_juntos_1',
+                pane: 'pane_Especies_1',
                 radius: 4.0,
                 opacity: 1,
                 color: 'rgba(35,35,35,1.0)',
@@ -1193,13 +1210,13 @@
                 weight: 1,
                 fill: true,
                 fillOpacity: 1,
-                fillColor: 'rgba(204,92,103,1.0)',
+                fillColor: 'rgba(67,208,74,1.0)',
                 interactive: true,
             }
                     break;
                 case 'Senna siamea':
                     return {
-                pane: 'pane_Todos_los_parques_juntos_1',
+                pane: 'pane_Especies_1',
                 radius: 4.0,
                 opacity: 1,
                 color: 'rgba(35,35,35,1.0)',
@@ -1209,13 +1226,13 @@
                 weight: 1,
                 fill: true,
                 fillOpacity: 1,
-                fillColor: 'rgba(217,129,179,1.0)',
+                fillColor: 'rgba(171,224,98,1.0)',
                 interactive: true,
             }
                     break;
                 case 'Simarouba amara':
                     return {
-                pane: 'pane_Todos_los_parques_juntos_1',
+                pane: 'pane_Especies_1',
                 radius: 4.0,
                 opacity: 1,
                 color: 'rgba(35,35,35,1.0)',
@@ -1225,13 +1242,13 @@
                 weight: 1,
                 fill: true,
                 fillOpacity: 1,
-                fillColor: 'rgba(124,44,204,1.0)',
+                fillColor: 'rgba(114,153,212,1.0)',
                 interactive: true,
             }
                     break;
                 case 'Simarouba glauca':
                     return {
-                pane: 'pane_Todos_los_parques_juntos_1',
+                pane: 'pane_Especies_1',
                 radius: 4.0,
                 opacity: 1,
                 color: 'rgba(35,35,35,1.0)',
@@ -1241,13 +1258,13 @@
                 weight: 1,
                 fill: true,
                 fillOpacity: 1,
-                fillColor: 'rgba(118,215,235,1.0)',
+                fillColor: 'rgba(59,233,161,1.0)',
                 interactive: true,
             }
                     break;
                 case 'Spathodea campanulata':
                     return {
-                pane: 'pane_Todos_los_parques_juntos_1',
+                pane: 'pane_Especies_1',
                 radius: 4.0,
                 opacity: 1,
                 color: 'rgba(35,35,35,1.0)',
@@ -1257,13 +1274,13 @@
                 weight: 1,
                 fill: true,
                 fillOpacity: 1,
-                fillColor: 'rgba(124,233,235,1.0)',
+                fillColor: 'rgba(58,83,204,1.0)',
                 interactive: true,
             }
                     break;
                 case 'Spondias purpurea':
                     return {
-                pane: 'pane_Todos_los_parques_juntos_1',
+                pane: 'pane_Especies_1',
                 radius: 4.0,
                 opacity: 1,
                 color: 'rgba(35,35,35,1.0)',
@@ -1273,13 +1290,13 @@
                 weight: 1,
                 fill: true,
                 fillOpacity: 1,
-                fillColor: 'rgba(65,224,126,1.0)',
+                fillColor: 'rgba(111,136,211,1.0)',
                 interactive: true,
             }
                     break;
                 case 'Swietenia humilis':
                     return {
-                pane: 'pane_Todos_los_parques_juntos_1',
+                pane: 'pane_Especies_1',
                 radius: 4.0,
                 opacity: 1,
                 color: 'rgba(35,35,35,1.0)',
@@ -1289,13 +1306,13 @@
                 weight: 1,
                 fill: true,
                 fillOpacity: 1,
-                fillColor: 'rgba(63,203,216,1.0)',
+                fillColor: 'rgba(219,64,64,1.0)',
                 interactive: true,
             }
                     break;
                 case 'Tabebuia rosea':
                     return {
-                pane: 'pane_Todos_los_parques_juntos_1',
+                pane: 'pane_Especies_1',
                 radius: 4.0,
                 opacity: 1,
                 color: 'rgba(35,35,35,1.0)',
@@ -1305,13 +1322,13 @@
                 weight: 1,
                 fill: true,
                 fillOpacity: 1,
-                fillColor: 'rgba(70,213,170,1.0)',
+                fillColor: 'rgba(97,206,202,1.0)',
                 interactive: true,
             }
                     break;
                 case 'Tecoma stans':
                     return {
-                pane: 'pane_Todos_los_parques_juntos_1',
+                pane: 'pane_Especies_1',
                 radius: 4.0,
                 opacity: 1,
                 color: 'rgba(35,35,35,1.0)',
@@ -1321,13 +1338,13 @@
                 weight: 1,
                 fill: true,
                 fillOpacity: 1,
-                fillColor: 'rgba(212,105,75,1.0)',
+                fillColor: 'rgba(59,237,148,1.0)',
                 interactive: true,
             }
                     break;
                 case 'Terminalia catappa':
                     return {
-                pane: 'pane_Todos_los_parques_juntos_1',
+                pane: 'pane_Especies_1',
                 radius: 4.0,
                 opacity: 1,
                 color: 'rgba(35,35,35,1.0)',
@@ -1337,13 +1354,13 @@
                 weight: 1,
                 fill: true,
                 fillOpacity: 1,
-                fillColor: 'rgba(239,170,22,1.0)',
+                fillColor: 'rgba(54,196,231,1.0)',
                 interactive: true,
             }
                     break;
                 case 'Terminalia ivorensis':
                     return {
-                pane: 'pane_Todos_los_parques_juntos_1',
+                pane: 'pane_Especies_1',
                 radius: 4.0,
                 opacity: 1,
                 color: 'rgba(35,35,35,1.0)',
@@ -1353,13 +1370,13 @@
                 weight: 1,
                 fill: true,
                 fillOpacity: 1,
-                fillColor: 'rgba(168,117,205,1.0)',
+                fillColor: 'rgba(202,135,48,1.0)',
                 interactive: true,
             }
                     break;
                 case 'Terminalia mantaly':
                     return {
-                pane: 'pane_Todos_los_parques_juntos_1',
+                pane: 'pane_Especies_1',
                 radius: 4.0,
                 opacity: 1,
                 color: 'rgba(35,35,35,1.0)',
@@ -1369,13 +1386,13 @@
                 weight: 1,
                 fill: true,
                 fillOpacity: 1,
-                fillColor: 'rgba(106,136,219,1.0)',
+                fillColor: 'rgba(234,65,116,1.0)',
                 interactive: true,
             }
                     break;
                 case 'Ziziphus mauritiana':
                     return {
-                pane: 'pane_Todos_los_parques_juntos_1',
+                pane: 'pane_Especies_1',
                 radius: 4.0,
                 opacity: 1,
                 color: 'rgba(35,35,35,1.0)',
@@ -1385,35 +1402,35 @@
                 weight: 1,
                 fill: true,
                 fillOpacity: 1,
-                fillColor: 'rgba(114,231,93,1.0)',
+                fillColor: 'rgba(190,96,209,1.0)',
                 interactive: true,
             }
                     break;
             }
         }
-        map.createPane('pane_Todos_los_parques_juntos_1');
-        map.getPane('pane_Todos_los_parques_juntos_1').style.zIndex = 401;
-        map.getPane('pane_Todos_los_parques_juntos_1').style['mix-blend-mode'] = 'normal';
-        var layer_Todos_los_parques_juntos_1 = new L.geoJson(json_Todos_los_parques_juntos_1, {
+        map.createPane('pane_Especies_1');
+        map.getPane('pane_Especies_1').style.zIndex = 401;
+        map.getPane('pane_Especies_1').style['mix-blend-mode'] = 'normal';
+        var layer_Especies_1 = new L.geoJson(json_Especies_1, {
             attribution: '',
             interactive: true,
-            dataVar: 'json_Todos_los_parques_juntos_1',
-            layerName: 'layer_Todos_los_parques_juntos_1',
-            pane: 'pane_Todos_los_parques_juntos_1',
-            onEachFeature: pop_Todos_los_parques_juntos_1,
+            dataVar: 'json_Especies_1',
+            layerName: 'layer_Especies_1',
+            pane: 'pane_Especies_1',
+            onEachFeature: pop_Especies_1,
             pointToLayer: function (feature, latlng) {
                 var context = {
                     feature: feature,
                     variables: {}
                 };
-                return L.circleMarker(latlng, style_Todos_los_parques_juntos_1_0(feature));
+                return L.circleMarker(latlng, style_Especies_1_0(feature));
             },
         });
-        bounds_group.addLayer(layer_Todos_los_parques_juntos_1);
-        map.addLayer(layer_Todos_los_parques_juntos_1);
+        bounds_group.addLayer(layer_Especies_1);
+        map.addLayer(layer_Especies_1);
         var overlaysTree = [
-            {label: 'Todos_los_parques_juntos<br /><table><tr><td style="text-align: center;"><img src="legend/Todos_los_parques_juntos_1_Acaciamangium0.png" /></td><td>Acacia mangium</td></tr><tr><td style="text-align: center;"><img src="legend/Todos_los_parques_juntos_1_Acaciellaangustissima1.png" /></td><td>Acaciella angustissima</td></tr><tr><td style="text-align: center;"><img src="legend/Todos_los_parques_juntos_1_Adonidiamerrillii2.png" /></td><td>Adonidia merrillii</td></tr><tr><td style="text-align: center;"><img src="legend/Todos_los_parques_juntos_1_Anacardiumoccidentale3.png" /></td><td>Anacardium occidentale</td></tr><tr><td style="text-align: center;"><img src="legend/Todos_los_parques_juntos_1_Andirainermis4.png" /></td><td>Andira inermis</td></tr><tr><td style="text-align: center;"><img src="legend/Todos_los_parques_juntos_1_Annonamuricata5.png" /></td><td>Annona muricata</td></tr><tr><td style="text-align: center;"><img src="legend/Todos_los_parques_juntos_1_Astroniumgraveolens6.png" /></td><td>Astronium graveolens</td></tr><tr><td style="text-align: center;"><img src="legend/Todos_los_parques_juntos_1_Azadirachtaindica7.png" /></td><td>Azadirachta indica</td></tr><tr><td style="text-align: center;"><img src="legend/Todos_los_parques_juntos_1_Bunchosiasp8.png" /></td><td>Bunchosia sp.</td></tr><tr><td style="text-align: center;"><img src="legend/Todos_los_parques_juntos_1_Byrsonimacrassifolia9.png" /></td><td>Byrsonima crassifolia</td></tr><tr><td style="text-align: center;"><img src="legend/Todos_los_parques_juntos_1_Caesalpiniapulcherrima10.png" /></td><td>Caesalpinia pulcherrima</td></tr><tr><td style="text-align: center;"><img src="legend/Todos_los_parques_juntos_1_Calycophyllumcandidissimum11.png" /></td><td>Calycophyllum candidissimum</td></tr><tr><td style="text-align: center;"><img src="legend/Todos_los_parques_juntos_1_Cascabelathevetia12.png" /></td><td>Cascabela thevetia</td></tr><tr><td style="text-align: center;"><img src="legend/Todos_los_parques_juntos_1_Cassiafistula13.png" /></td><td>Cassia fistula</td></tr><tr><td style="text-align: center;"><img src="legend/Todos_los_parques_juntos_1_Cassiagrandis14.png" /></td><td>Cassia grandis</td></tr><tr><td style="text-align: center;"><img src="legend/Todos_los_parques_juntos_1_Cedrelaodorata15.png" /></td><td>Cedrela odorata</td></tr><tr><td style="text-align: center;"><img src="legend/Todos_los_parques_juntos_1_Ceibapentandra16.png" /></td><td>Ceiba pentandra</td></tr><tr><td style="text-align: center;"><img src="legend/Todos_los_parques_juntos_1_Cenostigmaeriostachys17.png" /></td><td>Cenostigma eriostachys</td></tr><tr><td style="text-align: center;"><img src="legend/Todos_los_parques_juntos_1_Chrysophyllumcainito18.png" /></td><td>Chrysophyllum cainito</td></tr><tr><td style="text-align: center;"><img src="legend/Todos_los_parques_juntos_1_Citrusspp19.png" /></td><td>Citrus spp.</td></tr><tr><td style="text-align: center;"><img src="legend/Todos_los_parques_juntos_1_Cnidoscolusaconitifolius20.png" /></td><td>Cnidoscolus aconitifolius</td></tr><tr><td style="text-align: center;"><img src="legend/Todos_los_parques_juntos_1_Coccolobacaracasana21.png" /></td><td>Coccoloba caracasana</td></tr><tr><td style="text-align: center;"><img src="legend/Todos_los_parques_juntos_1_Coccolobauvifera22.png" /></td><td>Coccoloba uvifera</td></tr><tr><td style="text-align: center;"><img src="legend/Todos_los_parques_juntos_1_Cocosnucifera23.png" /></td><td>Cocos nucifera</td></tr><tr><td style="text-align: center;"><img src="legend/Todos_los_parques_juntos_1_Cojobaarborea24.png" /></td><td>Cojoba arborea</td></tr><tr><td style="text-align: center;"><img src="legend/Todos_los_parques_juntos_1_Cordiadentata25.png" /></td><td>Cordia dentata</td></tr><tr><td style="text-align: center;"><img src="legend/Todos_los_parques_juntos_1_Crescentiaalata26.png" /></td><td>Crescentia alata</td></tr><tr><td style="text-align: center;"><img src="legend/Todos_los_parques_juntos_1_Crescentiacujete27.png" /></td><td>Crescentia cujete</td></tr><tr><td style="text-align: center;"><img src="legend/Todos_los_parques_juntos_1_Dalbergiaretusa28.png" /></td><td>Dalbergia retusa</td></tr><tr><td style="text-align: center;"><img src="legend/Todos_los_parques_juntos_1_Delonixregia29.png" /></td><td>Delonix regia</td></tr><tr><td style="text-align: center;"><img src="legend/Todos_los_parques_juntos_1_Diphysaamericana30.png" /></td><td>Diphysa americana</td></tr><tr><td style="text-align: center;"><img src="legend/Todos_los_parques_juntos_1_Enterolobiumcyclocarpum31.png" /></td><td>Enterolobium cyclocarpum</td></tr><tr><td style="text-align: center;"><img src="legend/Todos_los_parques_juntos_1_Erythrinavariegata32.png" /></td><td>Erythrina variegata</td></tr><tr><td style="text-align: center;"><img src="legend/Todos_los_parques_juntos_1_Ficusbenjamina33.png" /></td><td>Ficus benjamina</td></tr><tr><td style="text-align: center;"><img src="legend/Todos_los_parques_juntos_1_Ficuscotinifolia34.png" /></td><td>Ficus cotinifolia</td></tr><tr><td style="text-align: center;"><img src="legend/Todos_los_parques_juntos_1_Ficusgoldmanii35.png" /></td><td>Ficus goldmanii</td></tr><tr><td style="text-align: center;"><img src="legend/Todos_los_parques_juntos_1_Ficussp36.png" /></td><td>Ficus sp.</td></tr><tr><td style="text-align: center;"><img src="legend/Todos_los_parques_juntos_1_Gliricidiasepium37.png" /></td><td>Gliricidia sepium</td></tr><tr><td style="text-align: center;"><img src="legend/Todos_los_parques_juntos_1_Guazumaulmifolia38.png" /></td><td>Guazuma ulmifolia</td></tr><tr><td style="text-align: center;"><img src="legend/Todos_los_parques_juntos_1_Haematoxylumbrasiletto39.png" /></td><td>Haematoxylum brasiletto</td></tr><tr><td style="text-align: center;"><img src="legend/Todos_los_parques_juntos_1_Handroanthusimpetiginosus40.png" /></td><td>Handroanthus impetiginosus</td></tr><tr><td style="text-align: center;"><img src="legend/Todos_los_parques_juntos_1_Handroanthusochraceus41.png" /></td><td>Handroanthus ochraceus</td></tr><tr><td style="text-align: center;"><img src="legend/Todos_los_parques_juntos_1_Huracrepitans42.png" /></td><td>Hura crepitans</td></tr><tr><td style="text-align: center;"><img src="legend/Todos_los_parques_juntos_1_Ingavera43.png" /></td><td>Inga vera</td></tr><tr><td style="text-align: center;"><img src="legend/Todos_los_parques_juntos_1_Jacarandamimosifolia44.png" /></td><td>Jacaranda mimosifolia</td></tr><tr><td style="text-align: center;"><img src="legend/Todos_los_parques_juntos_1_Leucaenaleucocephala45.png" /></td><td>Leucaena leucocephala</td></tr><tr><td style="text-align: center;"><img src="legend/Todos_los_parques_juntos_1_Lonchocarpusfelipei46.png" /></td><td>Lonchocarpus felipei</td></tr><tr><td style="text-align: center;"><img src="legend/Todos_los_parques_juntos_1_Mangiferaindica47.png" /></td><td>Mangifera indica</td></tr><tr><td style="text-align: center;"><img src="legend/Todos_los_parques_juntos_1_Melicoccusbijugatus48.png" /></td><td>Melicoccus bijugatus</td></tr><tr><td style="text-align: center;"><img src="legend/Todos_los_parques_juntos_1_Moringaoleifera49.png" /></td><td>Moringa oleifera</td></tr><tr><td style="text-align: center;"><img src="legend/Todos_los_parques_juntos_1_Muerto50.png" /></td><td>Muerto</td></tr><tr><td style="text-align: center;"><img src="legend/Todos_los_parques_juntos_1_Muntingiacalabura51.png" /></td><td>Muntingia calabura</td></tr><tr><td style="text-align: center;"><img src="legend/Todos_los_parques_juntos_1_Platymisciumparviflorum52.png" /></td><td>Platymiscium parviflorum</td></tr><tr><td style="text-align: center;"><img src="legend/Todos_los_parques_juntos_1_Platymisciumpinnatum53.png" /></td><td>Platymiscium pinnatum</td></tr><tr><td style="text-align: center;"><img src="legend/Todos_los_parques_juntos_1_Plumeriarubra54.png" /></td><td>Plumeria rubra</td></tr><tr><td style="text-align: center;"><img src="legend/Todos_los_parques_juntos_1_Pochotafendleri55.png" /></td><td>Pochota fendleri</td></tr><tr><td style="text-align: center;"><img src="legend/Todos_los_parques_juntos_1_Pseudalbizziaadinocephala56.png" /></td><td>Pseudalbizzia adinocephala</td></tr><tr><td style="text-align: center;"><img src="legend/Todos_los_parques_juntos_1_Pseudalbizzianiopoides57.png" /></td><td>Pseudalbizzia niopoides</td></tr><tr><td style="text-align: center;"><img src="legend/Todos_los_parques_juntos_1_Pseudobombaxseptenatum58.png" /></td><td>Pseudobombax septenatum</td></tr><tr><td style="text-align: center;"><img src="legend/Todos_los_parques_juntos_1_Pseudosamaneaguachapele59.png" /></td><td>Pseudosamanea guachapele</td></tr><tr><td style="text-align: center;"><img src="legend/Todos_los_parques_juntos_1_Pterocarpusorbiculatus60.png" /></td><td>Pterocarpus orbiculatus</td></tr><tr><td style="text-align: center;"><img src="legend/Todos_los_parques_juntos_1_Samaneasaman61.png" /></td><td>Samanea saman</td></tr><tr><td style="text-align: center;"><img src="legend/Todos_los_parques_juntos_1_Schizolobiumparahyba62.png" /></td><td>Schizolobium parahyba</td></tr><tr><td style="text-align: center;"><img src="legend/Todos_los_parques_juntos_1_Sennaatomaria63.png" /></td><td>Senna atomaria</td></tr><tr><td style="text-align: center;"><img src="legend/Todos_los_parques_juntos_1_Sennasiamea64.png" /></td><td>Senna siamea</td></tr><tr><td style="text-align: center;"><img src="legend/Todos_los_parques_juntos_1_Simaroubaamara65.png" /></td><td>Simarouba amara</td></tr><tr><td style="text-align: center;"><img src="legend/Todos_los_parques_juntos_1_Simaroubaglauca66.png" /></td><td>Simarouba glauca</td></tr><tr><td style="text-align: center;"><img src="legend/Todos_los_parques_juntos_1_Spathodeacampanulata67.png" /></td><td>Spathodea campanulata</td></tr><tr><td style="text-align: center;"><img src="legend/Todos_los_parques_juntos_1_Spondiaspurpurea68.png" /></td><td>Spondias purpurea</td></tr><tr><td style="text-align: center;"><img src="legend/Todos_los_parques_juntos_1_Swieteniahumilis69.png" /></td><td>Swietenia humilis</td></tr><tr><td style="text-align: center;"><img src="legend/Todos_los_parques_juntos_1_Tabebuiarosea70.png" /></td><td>Tabebuia rosea</td></tr><tr><td style="text-align: center;"><img src="legend/Todos_los_parques_juntos_1_Tecomastans71.png" /></td><td>Tecoma stans</td></tr><tr><td style="text-align: center;"><img src="legend/Todos_los_parques_juntos_1_Terminaliacatappa72.png" /></td><td>Terminalia catappa</td></tr><tr><td style="text-align: center;"><img src="legend/Todos_los_parques_juntos_1_Terminaliaivorensis73.png" /></td><td>Terminalia ivorensis</td></tr><tr><td style="text-align: center;"><img src="legend/Todos_los_parques_juntos_1_Terminaliamantaly74.png" /></td><td>Terminalia mantaly</td></tr><tr><td style="text-align: center;"><img src="legend/Todos_los_parques_juntos_1_Ziziphusmauritiana75.png" /></td><td>Ziziphus mauritiana</td></tr></table>', layer: layer_Todos_los_parques_juntos_1},
-            {label: "Google Satellite", layer: layer_GoogleSatellite_0},]
+            {label: 'Especies<br /><table><tr><td style="text-align: center;"><img src="legend/Especies_1_Acaciamangium0.png" /></td><td>Acacia mangium</td></tr><tr><td style="text-align: center;"><img src="legend/Especies_1_Acaciellaangustissima1.png" /></td><td>Acaciella angustissima</td></tr><tr><td style="text-align: center;"><img src="legend/Especies_1_Adonidiamerrillii2.png" /></td><td>Adonidia merrillii</td></tr><tr><td style="text-align: center;"><img src="legend/Especies_1_Anacardiumoccidentale3.png" /></td><td>Anacardium occidentale</td></tr><tr><td style="text-align: center;"><img src="legend/Especies_1_Andirainermis4.png" /></td><td>Andira inermis</td></tr><tr><td style="text-align: center;"><img src="legend/Especies_1_Annonamuricata5.png" /></td><td>Annona muricata</td></tr><tr><td style="text-align: center;"><img src="legend/Especies_1_Astroniumgraveolens6.png" /></td><td>Astronium graveolens</td></tr><tr><td style="text-align: center;"><img src="legend/Especies_1_Azadirachtaindica7.png" /></td><td>Azadirachta indica</td></tr><tr><td style="text-align: center;"><img src="legend/Especies_1_Bunchosiasp8.png" /></td><td>Bunchosia sp.</td></tr><tr><td style="text-align: center;"><img src="legend/Especies_1_Byrsonimacrassifolia9.png" /></td><td>Byrsonima crassifolia</td></tr><tr><td style="text-align: center;"><img src="legend/Especies_1_Caesalpiniapulcherrima10.png" /></td><td>Caesalpinia pulcherrima</td></tr><tr><td style="text-align: center;"><img src="legend/Especies_1_Calycophyllumcandidissimum11.png" /></td><td>Calycophyllum candidissimum</td></tr><tr><td style="text-align: center;"><img src="legend/Especies_1_Cascabelathevetia12.png" /></td><td>Cascabela thevetia</td></tr><tr><td style="text-align: center;"><img src="legend/Especies_1_Cassiafistula13.png" /></td><td>Cassia fistula</td></tr><tr><td style="text-align: center;"><img src="legend/Especies_1_Cassiagrandis14.png" /></td><td>Cassia grandis</td></tr><tr><td style="text-align: center;"><img src="legend/Especies_1_Cedrelaodorata15.png" /></td><td>Cedrela odorata</td></tr><tr><td style="text-align: center;"><img src="legend/Especies_1_Ceibapentandra16.png" /></td><td>Ceiba pentandra</td></tr><tr><td style="text-align: center;"><img src="legend/Especies_1_Cenostigmaeriostachys17.png" /></td><td>Cenostigma eriostachys</td></tr><tr><td style="text-align: center;"><img src="legend/Especies_1_Chrysophyllumcainito18.png" /></td><td>Chrysophyllum cainito</td></tr><tr><td style="text-align: center;"><img src="legend/Especies_1_Citrusspp19.png" /></td><td>Citrus spp.</td></tr><tr><td style="text-align: center;"><img src="legend/Especies_1_Cnidoscolusaconitifolius20.png" /></td><td>Cnidoscolus aconitifolius</td></tr><tr><td style="text-align: center;"><img src="legend/Especies_1_Coccolobacaracasana21.png" /></td><td>Coccoloba caracasana</td></tr><tr><td style="text-align: center;"><img src="legend/Especies_1_Coccolobauvifera22.png" /></td><td>Coccoloba uvifera</td></tr><tr><td style="text-align: center;"><img src="legend/Especies_1_Cocosnucifera23.png" /></td><td>Cocos nucifera</td></tr><tr><td style="text-align: center;"><img src="legend/Especies_1_Cojobaarborea24.png" /></td><td>Cojoba arborea</td></tr><tr><td style="text-align: center;"><img src="legend/Especies_1_Cordiadentata25.png" /></td><td>Cordia dentata</td></tr><tr><td style="text-align: center;"><img src="legend/Especies_1_Crescentiaalata26.png" /></td><td>Crescentia alata</td></tr><tr><td style="text-align: center;"><img src="legend/Especies_1_Crescentiacujete27.png" /></td><td>Crescentia cujete</td></tr><tr><td style="text-align: center;"><img src="legend/Especies_1_Dalbergiaretusa28.png" /></td><td>Dalbergia retusa</td></tr><tr><td style="text-align: center;"><img src="legend/Especies_1_Delonixregia29.png" /></td><td>Delonix regia</td></tr><tr><td style="text-align: center;"><img src="legend/Especies_1_Diphysaamericana30.png" /></td><td>Diphysa americana</td></tr><tr><td style="text-align: center;"><img src="legend/Especies_1_Enterolobiumcyclocarpum31.png" /></td><td>Enterolobium cyclocarpum</td></tr><tr><td style="text-align: center;"><img src="legend/Especies_1_Erythrinavariegata32.png" /></td><td>Erythrina variegata</td></tr><tr><td style="text-align: center;"><img src="legend/Especies_1_Ficusbenjamina33.png" /></td><td>Ficus benjamina</td></tr><tr><td style="text-align: center;"><img src="legend/Especies_1_Ficuscotinifolia34.png" /></td><td>Ficus cotinifolia</td></tr><tr><td style="text-align: center;"><img src="legend/Especies_1_Ficusgoldmanii35.png" /></td><td>Ficus goldmanii</td></tr><tr><td style="text-align: center;"><img src="legend/Especies_1_Ficussp36.png" /></td><td>Ficus sp.</td></tr><tr><td style="text-align: center;"><img src="legend/Especies_1_Gliricidiasepium37.png" /></td><td>Gliricidia sepium</td></tr><tr><td style="text-align: center;"><img src="legend/Especies_1_Guazumaulmifolia38.png" /></td><td>Guazuma ulmifolia</td></tr><tr><td style="text-align: center;"><img src="legend/Especies_1_Haematoxylumbrasiletto39.png" /></td><td>Haematoxylum brasiletto</td></tr><tr><td style="text-align: center;"><img src="legend/Especies_1_Handroanthusimpetiginosus40.png" /></td><td>Handroanthus impetiginosus</td></tr><tr><td style="text-align: center;"><img src="legend/Especies_1_Handroanthusochraceus41.png" /></td><td>Handroanthus ochraceus</td></tr><tr><td style="text-align: center;"><img src="legend/Especies_1_Huracrepitans42.png" /></td><td>Hura crepitans</td></tr><tr><td style="text-align: center;"><img src="legend/Especies_1_Ingavera43.png" /></td><td>Inga vera</td></tr><tr><td style="text-align: center;"><img src="legend/Especies_1_Jacarandamimosifolia44.png" /></td><td>Jacaranda mimosifolia</td></tr><tr><td style="text-align: center;"><img src="legend/Especies_1_Leucaenaleucocephala45.png" /></td><td>Leucaena leucocephala</td></tr><tr><td style="text-align: center;"><img src="legend/Especies_1_Lonchocarpusfelipei46.png" /></td><td>Lonchocarpus felipei</td></tr><tr><td style="text-align: center;"><img src="legend/Especies_1_Mangiferaindica47.png" /></td><td>Mangifera indica</td></tr><tr><td style="text-align: center;"><img src="legend/Especies_1_Melicoccusbijugatus48.png" /></td><td>Melicoccus bijugatus</td></tr><tr><td style="text-align: center;"><img src="legend/Especies_1_Moringaoleifera49.png" /></td><td>Moringa oleifera</td></tr><tr><td style="text-align: center;"><img src="legend/Especies_1_Muerto50.png" /></td><td>Muerto</td></tr><tr><td style="text-align: center;"><img src="legend/Especies_1_Muntingiacalabura51.png" /></td><td>Muntingia calabura</td></tr><tr><td style="text-align: center;"><img src="legend/Especies_1_Platymisciumparviflorum52.png" /></td><td>Platymiscium parviflorum</td></tr><tr><td style="text-align: center;"><img src="legend/Especies_1_Platymisciumpinnatum53.png" /></td><td>Platymiscium pinnatum</td></tr><tr><td style="text-align: center;"><img src="legend/Especies_1_Plumeriarubra54.png" /></td><td>Plumeria rubra</td></tr><tr><td style="text-align: center;"><img src="legend/Especies_1_Pochotafendleri55.png" /></td><td>Pochota fendleri</td></tr><tr><td style="text-align: center;"><img src="legend/Especies_1_Pseudalbizziaadinocephala56.png" /></td><td>Pseudalbizzia adinocephala</td></tr><tr><td style="text-align: center;"><img src="legend/Especies_1_Pseudalbizzianiopoides57.png" /></td><td>Pseudalbizzia niopoides</td></tr><tr><td style="text-align: center;"><img src="legend/Especies_1_Pseudobombaxseptenatum58.png" /></td><td>Pseudobombax septenatum</td></tr><tr><td style="text-align: center;"><img src="legend/Especies_1_Pseudosamaneaguachapele59.png" /></td><td>Pseudosamanea guachapele</td></tr><tr><td style="text-align: center;"><img src="legend/Especies_1_Pterocarpusorbiculatus60.png" /></td><td>Pterocarpus orbiculatus</td></tr><tr><td style="text-align: center;"><img src="legend/Especies_1_Samaneasaman61.png" /></td><td>Samanea saman</td></tr><tr><td style="text-align: center;"><img src="legend/Especies_1_Schizolobiumparahyba62.png" /></td><td>Schizolobium parahyba</td></tr><tr><td style="text-align: center;"><img src="legend/Especies_1_Sennaatomaria63.png" /></td><td>Senna atomaria</td></tr><tr><td style="text-align: center;"><img src="legend/Especies_1_Sennasiamea64.png" /></td><td>Senna siamea</td></tr><tr><td style="text-align: center;"><img src="legend/Especies_1_Simaroubaamara65.png" /></td><td>Simarouba amara</td></tr><tr><td style="text-align: center;"><img src="legend/Especies_1_Simaroubaglauca66.png" /></td><td>Simarouba glauca</td></tr><tr><td style="text-align: center;"><img src="legend/Especies_1_Spathodeacampanulata67.png" /></td><td>Spathodea campanulata</td></tr><tr><td style="text-align: center;"><img src="legend/Especies_1_Spondiaspurpurea68.png" /></td><td>Spondias purpurea</td></tr><tr><td style="text-align: center;"><img src="legend/Especies_1_Swieteniahumilis69.png" /></td><td>Swietenia humilis</td></tr><tr><td style="text-align: center;"><img src="legend/Especies_1_Tabebuiarosea70.png" /></td><td>Tabebuia rosea</td></tr><tr><td style="text-align: center;"><img src="legend/Especies_1_Tecomastans71.png" /></td><td>Tecoma stans</td></tr><tr><td style="text-align: center;"><img src="legend/Especies_1_Terminaliacatappa72.png" /></td><td>Terminalia catappa</td></tr><tr><td style="text-align: center;"><img src="legend/Especies_1_Terminaliaivorensis73.png" /></td><td>Terminalia ivorensis</td></tr><tr><td style="text-align: center;"><img src="legend/Especies_1_Terminaliamantaly74.png" /></td><td>Terminalia mantaly</td></tr><tr><td style="text-align: center;"><img src="legend/Especies_1_Ziziphusmauritiana75.png" /></td><td>Ziziphus mauritiana</td></tr></table>', layer: layer_Especies_1},
+            {label: "Google Satellite", layer: layer_GoogleSatellite_0, radioGroup: 'bm' },]
         var lay = L.control.layers.tree(null, overlaysTree,{
             //namedToggle: true,
             //selectorBack: false,
@@ -1426,10 +1443,10 @@
         lay.addTo(map);
         setBounds();
         map.addControl(new L.Control.Search({
-            layer: layer_Todos_los_parques_juntos_1,
+            layer: layer_Especies_1,
             initial: false,
             hideMarkerOnCollapse: true,
-            propertyName: 'Especie'}));
+            propertyName: 'Área verde'}));
         document.getElementsByClassName('search-button')[0].className +=
          ' fa fa-binoculars';
         var mapDiv = document.getElementById('map');
@@ -1451,7 +1468,7 @@
         document.getElementById("all").appendChild(col1);
         document.getElementById("all").appendChild(col2);
         col1.appendChild(mapDiv)
-        var Filters = {"Nombre del emplazamiento": "str","Especie": "str"};
+        var Filters = {"Área verde": "str","Especie": "str"};
         function filterFunc() {
           map.eachLayer(function(lyr){
           if ("options" in lyr && "dataVar" in lyr["options"]){
@@ -1543,43 +1560,43 @@
         }
             document.getElementById("menu").appendChild(
                 document.createElement("div"));
-            var div_Nombredelemplazamiento = document.createElement('div');
-            div_Nombredelemplazamiento.id = "div_Nombredelemplazamiento";
-            div_Nombredelemplazamiento.className= "filterselect";
-            document.getElementById("menu").appendChild(div_Nombredelemplazamiento);
-            sel_Nombredelemplazamiento = document.createElement('select');
-            sel_Nombredelemplazamiento.multiple = true;
-            sel_Nombredelemplazamiento.size = 10;
-            sel_Nombredelemplazamiento.id = "sel_Nombredelemplazamiento";
-            var Nombredelemplazamiento_options_str = "<option value='' unselected></option>";
-            sel_Nombredelemplazamiento.onchange = function(){filterFunc()};
-            Nombredelemplazamiento_options_str  += '<option value="Chorotega">Chorotega</option>';
-            Nombredelemplazamiento_options_str  += '<option value="Las Palmas">Las Palmas</option>';
-            Nombredelemplazamiento_options_str  += '<option value="Los Ángeles">Los Ángeles</option>';
-            Nombredelemplazamiento_options_str  += '<option value="Mercado Cañas">Mercado Cañas</option>';
-            Nombredelemplazamiento_options_str  += '<option value="Parque Central">Parque Central</option>';
-            Nombredelemplazamiento_options_str  += '<option value="Parque Colón">Parque Colón</option>';
-            Nombredelemplazamiento_options_str  += '<option value="Parque INVU">Parque INVU</option>';
-            Nombredelemplazamiento_options_str  += '<option value="Polideportivo">Polideportivo</option>';
-            Nombredelemplazamiento_options_str  += '<option value="Separador de vía">Separador de vía</option>';
-            Nombredelemplazamiento_options_str  += '<option value="Tres Marías">Tres Marías</option>';
-            sel_Nombredelemplazamiento.innerHTML = Nombredelemplazamiento_options_str;
-            div_Nombredelemplazamiento.appendChild(sel_Nombredelemplazamiento);
-            var lab_Nombredelemplazamiento = document.createElement('div');
-            lab_Nombredelemplazamiento.innerHTML = 'Nombre del emplazamiento';
-            lab_Nombredelemplazamiento.className = 'filterlabel';
-            div_Nombredelemplazamiento.appendChild(lab_Nombredelemplazamiento);
-            var reset_Nombredelemplazamiento = document.createElement('div');
-            reset_Nombredelemplazamiento.innerHTML = 'clear filter';
-            reset_Nombredelemplazamiento.className = 'filterlabel';
-            reset_Nombredelemplazamiento.onclick = function() {
-                var options = document.getElementById("sel_Nombredelemplazamiento").options;
+            var div_reaverde = document.createElement('div');
+            div_reaverde.id = "div_reaverde";
+            div_reaverde.className= "filterselect";
+            document.getElementById("menu").appendChild(div_reaverde);
+            sel_reaverde = document.createElement('select');
+            sel_reaverde.multiple = true;
+            sel_reaverde.size = 10;
+            sel_reaverde.id = "sel_reaverde";
+            var reaverde_options_str = "<option value='' unselected></option>";
+            sel_reaverde.onchange = function(){filterFunc()};
+            reaverde_options_str  += '<option value="Chorotega">Chorotega</option>';
+            reaverde_options_str  += '<option value="Las Palmas">Las Palmas</option>';
+            reaverde_options_str  += '<option value="Los Ángeles">Los Ángeles</option>';
+            reaverde_options_str  += '<option value="Mercado Cañas">Mercado Cañas</option>';
+            reaverde_options_str  += '<option value="Parque Central">Parque Central</option>';
+            reaverde_options_str  += '<option value="Parque Colón">Parque Colón</option>';
+            reaverde_options_str  += '<option value="Parque INVU">Parque INVU</option>';
+            reaverde_options_str  += '<option value="Polideportivo">Polideportivo</option>';
+            reaverde_options_str  += '<option value="Separador de vía">Separador de vía</option>';
+            reaverde_options_str  += '<option value="Tres Marías">Tres Marías</option>';
+            sel_reaverde.innerHTML = reaverde_options_str;
+            div_reaverde.appendChild(sel_reaverde);
+            var lab_reaverde = document.createElement('div');
+            lab_reaverde.innerHTML = 'Área verde';
+            lab_reaverde.className = 'filterlabel';
+            div_reaverde.appendChild(lab_reaverde);
+            var reset_reaverde = document.createElement('div');
+            reset_reaverde.innerHTML = 'clear filter';
+            reset_reaverde.className = 'filterlabel';
+            reset_reaverde.onclick = function() {
+                var options = document.getElementById("sel_reaverde").options;
                 for (var i=0; i < options.length; i++) {
                     options[i].selected = false;
                 }
                 filterFunc();
             };
-            div_Nombredelemplazamiento.appendChild(reset_Nombredelemplazamiento);
+            div_reaverde.appendChild(reset_reaverde);
             document.getElementById("menu").appendChild(
                 document.createElement("div"));
             var div_Especie = document.createElement('div');
