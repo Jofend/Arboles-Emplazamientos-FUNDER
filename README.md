@@ -1,2 +1,2 @@
 # Parques-FUNDER
-Parques de Cañas, Liberia y Nicoya.
+Árboles de los parques de Cañas
