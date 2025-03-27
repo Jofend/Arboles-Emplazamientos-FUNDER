@@ -1,2 +1,2 @@
 # Parques-FUNDER
-Árboles de los parques de Cañas
+Árboles de los emplazamientos de Cañas, Liberia y Nicoya.
