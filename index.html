@@ -85,7 +85,7 @@
 				popup._contentNode.classList.remove('media');
 			}
 		}
-        var title = new L.Control({'position':'topright'});
+        var title = new L.Control({'position':'bottomright'});
         title.onAdd = function (map) {
             this._div = L.DomUtil.create('div', 'info');
             this.update();
@@ -113,7 +113,7 @@
             abstract.show = function () {
                 this._div.classList.remove("abstract");
                 this._div.classList.add("abstractUncollapsed");
-                this._div.innerHTML = 'Por medio de este mapa usted puede conocer las especies arbóreas (nombre científico y común) presentes en las principales áreas verdes públicas del casco central de Cañas, Guanacaste. <br /><br />Proyecto Gestión del arbolado Urbano en las Ciudades de Nicoya, Cañas y Liberia para favorecer el bienestar de los habitantes.<br /><br />Centro Mesoamericano de Desarrollo Sostenible del Trópico Seco, Universidad Nacional.<br />Programa de Biodiversidad Forestal y Bioeconomía, Universidad Nacional.<br />Municipalidad de Cañas<br /><br />Elaborado por: Ing. José Felipe Novo Durón. 2025.';
+                this._div.innerHTML = 'Por medio de este mapa usted puede conocer las especies arbóreas (nombre científico y común) presentes en las principales áreas verdes públicas del casco central de Cañas, Guanacaste. <br /><br />Puede filtrar el resultado según área verde, especie, o ambas.<br /><br />Puede buscar un área verde en específco utilizando el ícono de los binoculares.<br /><br />"Proyecto Gestión del Arbolado Urbano en las Ciudades de Nicoya, Cañas y Liberia para Favorecer el Bienestar de los Habitantes"<br /><br />Centro Mesoamericano de Desarrollo Sostenible del Trópico Seco, Universidad Nacional.<br /><br />Programa de Biodiversidad Forestal y Bioeconomía, Universidad Nacional.<br /><br />Municipalidad de Cañas<br /><br />Elaborado por: Ing. José Felipe Novo Durón. 2025.';
         };
         abstract.addTo(map);
         var zoomControl = L.control.zoom({
@@ -165,15 +165,15 @@
                         <td>' + (feature.properties['Ciudad'] !== null ? autolinker.link(String(feature.properties['Ciudad']).replace(/'/g, '\'').toLocaleString()) : '') + '</td>\
                     </tr>\
                     <tr>\
-                        <th scope="row">Área verde</th>\
-                        <td>' + (feature.properties['Área verde'] !== null ? autolinker.link(String(feature.properties['Área verde']).replace(/'/g, '\'').toLocaleString()) : '') + '</td>\
+                        <th scope="row">Filtro de área verde</th>\
+                        <td>' + (feature.properties['Filtro de área verde'] !== null ? autolinker.link(String(feature.properties['Filtro de área verde']).replace(/'/g, '\'').toLocaleString()) : '') + '</td>\
                     </tr>\
                     <tr>\
-                        <th scope="row">Especie:</th>\
-                        <td>' + (feature.properties['Especie'] !== null ? autolinker.link(String(feature.properties['Especie']).replace(/'/g, '\'').toLocaleString()) : '') + '</td>\
+                        <th scope="row">Filtro de especie</th>\
+                        <td>' + (feature.properties['Filtro de especie'] !== null ? autolinker.link(String(feature.properties['Filtro de especie']).replace(/'/g, '\'').toLocaleString()) : '') + '</td>\
                     </tr>\
                     <tr>\
-                        <th scope="row">Nombre común:</th>\
+                        <th scope="row">Nombre común</th>\
                         <td>' + (feature.properties['Nombre común'] !== null ? autolinker.link(String(feature.properties['Nombre común']).replace(/'/g, '\'').toLocaleString()) : '') + '</td>\
                     </tr>\
                     <tr>\
@@ -189,7 +189,7 @@
         }
 
         function style_Especies_1_0(feature) {
-            switch(String(feature.properties['Especie'])) {
+            switch(String(feature.properties['Filtro de especie'])) {
                 case 'Acacia mangium':
                     return {
                 pane: 'pane_Especies_1',
@@ -202,7 +202,7 @@
                 weight: 1,
                 fill: true,
                 fillOpacity: 1,
-                fillColor: 'rgba(165,126,234,1.0)',
+                fillColor: 'rgba(177,94,225,1.0)',
                 interactive: true,
             }
                     break;
@@ -218,7 +218,7 @@
                 weight: 1,
                 fill: true,
                 fillOpacity: 1,
-                fillColor: 'rgba(209,215,28,1.0)',
+                fillColor: 'rgba(103,101,230,1.0)',
                 interactive: true,
             }
                     break;
@@ -234,7 +234,7 @@
                 weight: 1,
                 fill: true,
                 fillOpacity: 1,
-                fillColor: 'rgba(175,226,123,1.0)',
+                fillColor: 'rgba(231,185,59,1.0)',
                 interactive: true,
             }
                     break;
@@ -250,7 +250,7 @@
                 weight: 1,
                 fill: true,
                 fillOpacity: 1,
-                fillColor: 'rgba(238,132,156,1.0)',
+                fillColor: 'rgba(145,65,231,1.0)',
                 interactive: true,
             }
                     break;
@@ -266,7 +266,7 @@
                 weight: 1,
                 fill: true,
                 fillOpacity: 1,
-                fillColor: 'rgba(24,207,158,1.0)',
+                fillColor: 'rgba(238,179,120,1.0)',
                 interactive: true,
             }
                     break;
@@ -282,7 +282,7 @@
                 weight: 1,
                 fill: true,
                 fillOpacity: 1,
-                fillColor: 'rgba(221,21,174,1.0)',
+                fillColor: 'rgba(110,33,225,1.0)',
                 interactive: true,
             }
                     break;
@@ -298,7 +298,7 @@
                 weight: 1,
                 fill: true,
                 fillOpacity: 1,
-                fillColor: 'rgba(213,171,94,1.0)',
+                fillColor: 'rgba(214,26,211,1.0)',
                 interactive: true,
             }
                     break;
@@ -314,7 +314,7 @@
                 weight: 1,
                 fill: true,
                 fillOpacity: 1,
-                fillColor: 'rgba(98,228,51,1.0)',
+                fillColor: 'rgba(88,139,221,1.0)',
                 interactive: true,
             }
                     break;
@@ -330,7 +330,7 @@
                 weight: 1,
                 fill: true,
                 fillOpacity: 1,
-                fillColor: 'rgba(148,37,221,1.0)',
+                fillColor: 'rgba(236,101,117,1.0)',
                 interactive: true,
             }
                     break;
@@ -346,7 +346,7 @@
                 weight: 1,
                 fill: true,
                 fillOpacity: 1,
-                fillColor: 'rgba(211,72,224,1.0)',
+                fillColor: 'rgba(204,111,130,1.0)',
                 interactive: true,
             }
                     break;
@@ -362,7 +362,7 @@
                 weight: 1,
                 fill: true,
                 fillOpacity: 1,
-                fillColor: 'rgba(13,211,53,1.0)',
+                fillColor: 'rgba(151,236,71,1.0)',
                 interactive: true,
             }
                     break;
@@ -378,7 +378,7 @@
                 weight: 1,
                 fill: true,
                 fillOpacity: 1,
-                fillColor: 'rgba(237,111,99,1.0)',
+                fillColor: 'rgba(29,208,205,1.0)',
                 interactive: true,
             }
                     break;
@@ -394,7 +394,7 @@
                 weight: 1,
                 fill: true,
                 fillOpacity: 1,
-                fillColor: 'rgba(61,209,41,1.0)',
+                fillColor: 'rgba(236,58,67,1.0)',
                 interactive: true,
             }
                     break;
@@ -410,7 +410,7 @@
                 weight: 1,
                 fill: true,
                 fillOpacity: 1,
-                fillColor: 'rgba(197,216,53,1.0)',
+                fillColor: 'rgba(43,229,111,1.0)',
                 interactive: true,
             }
                     break;
@@ -426,7 +426,7 @@
                 weight: 1,
                 fill: true,
                 fillOpacity: 1,
-                fillColor: 'rgba(218,64,146,1.0)',
+                fillColor: 'rgba(206,56,108,1.0)',
                 interactive: true,
             }
                     break;
@@ -442,7 +442,7 @@
                 weight: 1,
                 fill: true,
                 fillOpacity: 1,
-                fillColor: 'rgba(106,234,38,1.0)',
+                fillColor: 'rgba(206,105,211,1.0)',
                 interactive: true,
             }
                     break;
@@ -458,7 +458,7 @@
                 weight: 1,
                 fill: true,
                 fillOpacity: 1,
-                fillColor: 'rgba(127,129,228,1.0)',
+                fillColor: 'rgba(231,227,101,1.0)',
                 interactive: true,
             }
                     break;
@@ -474,7 +474,7 @@
                 weight: 1,
                 fill: true,
                 fillOpacity: 1,
-                fillColor: 'rgba(216,206,13,1.0)',
+                fillColor: 'rgba(178,18,222,1.0)',
                 interactive: true,
             }
                     break;
@@ -490,7 +490,7 @@
                 weight: 1,
                 fill: true,
                 fillOpacity: 1,
-                fillColor: 'rgba(162,78,201,1.0)',
+                fillColor: 'rgba(16,200,142,1.0)',
                 interactive: true,
             }
                     break;
@@ -506,7 +506,7 @@
                 weight: 1,
                 fill: true,
                 fillOpacity: 1,
-                fillColor: 'rgba(146,199,240,1.0)',
+                fillColor: 'rgba(61,104,206,1.0)',
                 interactive: true,
             }
                     break;
@@ -522,7 +522,7 @@
                 weight: 1,
                 fill: true,
                 fillOpacity: 1,
-                fillColor: 'rgba(240,109,220,1.0)',
+                fillColor: 'rgba(50,225,141,1.0)',
                 interactive: true,
             }
                     break;
@@ -538,7 +538,7 @@
                 weight: 1,
                 fill: true,
                 fillOpacity: 1,
-                fillColor: 'rgba(223,206,75,1.0)',
+                fillColor: 'rgba(45,156,203,1.0)',
                 interactive: true,
             }
                     break;
@@ -554,7 +554,7 @@
                 weight: 1,
                 fill: true,
                 fillOpacity: 1,
-                fillColor: 'rgba(209,73,200,1.0)',
+                fillColor: 'rgba(223,160,71,1.0)',
                 interactive: true,
             }
                     break;
@@ -570,7 +570,7 @@
                 weight: 1,
                 fill: true,
                 fillOpacity: 1,
-                fillColor: 'rgba(214,147,85,1.0)',
+                fillColor: 'rgba(204,91,30,1.0)',
                 interactive: true,
             }
                     break;
@@ -586,7 +586,7 @@
                 weight: 1,
                 fill: true,
                 fillOpacity: 1,
-                fillColor: 'rgba(214,53,115,1.0)',
+                fillColor: 'rgba(109,220,228,1.0)',
                 interactive: true,
             }
                     break;
@@ -602,7 +602,7 @@
                 weight: 1,
                 fill: true,
                 fillOpacity: 1,
-                fillColor: 'rgba(202,159,51,1.0)',
+                fillColor: 'rgba(145,207,101,1.0)',
                 interactive: true,
             }
                     break;
@@ -618,7 +618,7 @@
                 weight: 1,
                 fill: true,
                 fillOpacity: 1,
-                fillColor: 'rgba(225,155,134,1.0)',
+                fillColor: 'rgba(212,45,23,1.0)',
                 interactive: true,
             }
                     break;
@@ -634,7 +634,7 @@
                 weight: 1,
                 fill: true,
                 fillOpacity: 1,
-                fillColor: 'rgba(177,236,68,1.0)',
+                fillColor: 'rgba(215,88,41,1.0)',
                 interactive: true,
             }
                     break;
@@ -650,7 +650,7 @@
                 weight: 1,
                 fill: true,
                 fillOpacity: 1,
-                fillColor: 'rgba(209,81,171,1.0)',
+                fillColor: 'rgba(107,162,208,1.0)',
                 interactive: true,
             }
                     break;
@@ -666,7 +666,7 @@
                 weight: 1,
                 fill: true,
                 fillOpacity: 1,
-                fillColor: 'rgba(79,237,73,1.0)',
+                fillColor: 'rgba(190,207,65,1.0)',
                 interactive: true,
             }
                     break;
@@ -682,7 +682,7 @@
                 weight: 1,
                 fill: true,
                 fillOpacity: 1,
-                fillColor: 'rgba(233,110,233,1.0)',
+                fillColor: 'rgba(204,147,106,1.0)',
                 interactive: true,
             }
                     break;
@@ -698,7 +698,7 @@
                 weight: 1,
                 fill: true,
                 fillOpacity: 1,
-                fillColor: 'rgba(238,165,112,1.0)',
+                fillColor: 'rgba(222,109,175,1.0)',
                 interactive: true,
             }
                     break;
@@ -714,7 +714,7 @@
                 weight: 1,
                 fill: true,
                 fillOpacity: 1,
-                fillColor: 'rgba(91,228,150,1.0)',
+                fillColor: 'rgba(222,118,95,1.0)',
                 interactive: true,
             }
                     break;
@@ -730,7 +730,7 @@
                 weight: 1,
                 fill: true,
                 fillOpacity: 1,
-                fillColor: 'rgba(139,115,226,1.0)',
+                fillColor: 'rgba(134,222,238,1.0)',
                 interactive: true,
             }
                     break;
@@ -746,7 +746,7 @@
                 weight: 1,
                 fill: true,
                 fillOpacity: 1,
-                fillColor: 'rgba(209,38,63,1.0)',
+                fillColor: 'rgba(96,209,181,1.0)',
                 interactive: true,
             }
                     break;
@@ -762,7 +762,7 @@
                 weight: 1,
                 fill: true,
                 fillOpacity: 1,
-                fillColor: 'rgba(84,171,206,1.0)',
+                fillColor: 'rgba(53,207,50,1.0)',
                 interactive: true,
             }
                     break;
@@ -778,7 +778,7 @@
                 weight: 1,
                 fill: true,
                 fillOpacity: 1,
-                fillColor: 'rgba(17,233,43,1.0)',
+                fillColor: 'rgba(47,237,88,1.0)',
                 interactive: true,
             }
                     break;
@@ -794,7 +794,7 @@
                 weight: 1,
                 fill: true,
                 fillOpacity: 1,
-                fillColor: 'rgba(143,72,205,1.0)',
+                fillColor: 'rgba(225,23,127,1.0)',
                 interactive: true,
             }
                     break;
@@ -810,7 +810,7 @@
                 weight: 1,
                 fill: true,
                 fillOpacity: 1,
-                fillColor: 'rgba(228,90,155,1.0)',
+                fillColor: 'rgba(201,119,213,1.0)',
                 interactive: true,
             }
                     break;
@@ -826,7 +826,7 @@
                 weight: 1,
                 fill: true,
                 fillOpacity: 1,
-                fillColor: 'rgba(202,177,78,1.0)',
+                fillColor: 'rgba(209,61,182,1.0)',
                 interactive: true,
             }
                     break;
@@ -842,7 +842,7 @@
                 weight: 1,
                 fill: true,
                 fillOpacity: 1,
-                fillColor: 'rgba(126,162,234,1.0)',
+                fillColor: 'rgba(160,234,62,1.0)',
                 interactive: true,
             }
                     break;
@@ -858,7 +858,7 @@
                 weight: 1,
                 fill: true,
                 fillOpacity: 1,
-                fillColor: 'rgba(85,66,209,1.0)',
+                fillColor: 'rgba(207,118,198,1.0)',
                 interactive: true,
             }
                     break;
@@ -874,7 +874,7 @@
                 weight: 1,
                 fill: true,
                 fillOpacity: 1,
-                fillColor: 'rgba(236,131,138,1.0)',
+                fillColor: 'rgba(240,210,79,1.0)',
                 interactive: true,
             }
                     break;
@@ -890,7 +890,7 @@
                 weight: 1,
                 fill: true,
                 fillOpacity: 1,
-                fillColor: 'rgba(115,174,209,1.0)',
+                fillColor: 'rgba(40,238,129,1.0)',
                 interactive: true,
             }
                     break;
@@ -906,7 +906,7 @@
                 weight: 1,
                 fill: true,
                 fillOpacity: 1,
-                fillColor: 'rgba(133,90,232,1.0)',
+                fillColor: 'rgba(122,231,213,1.0)',
                 interactive: true,
             }
                     break;
@@ -922,7 +922,7 @@
                 weight: 1,
                 fill: true,
                 fillOpacity: 1,
-                fillColor: 'rgba(71,225,125,1.0)',
+                fillColor: 'rgba(39,196,239,1.0)',
                 interactive: true,
             }
                     break;
@@ -938,7 +938,7 @@
                 weight: 1,
                 fill: true,
                 fillOpacity: 1,
-                fillColor: 'rgba(52,41,208,1.0)',
+                fillColor: 'rgba(211,123,120,1.0)',
                 interactive: true,
             }
                     break;
@@ -954,7 +954,7 @@
                 weight: 1,
                 fill: true,
                 fillOpacity: 1,
-                fillColor: 'rgba(12,203,168,1.0)',
+                fillColor: 'rgba(212,62,104,1.0)',
                 interactive: true,
             }
                     break;
@@ -970,7 +970,7 @@
                 weight: 1,
                 fill: true,
                 fillOpacity: 1,
-                fillColor: 'rgba(178,200,82,1.0)',
+                fillColor: 'rgba(144,116,227,1.0)',
                 interactive: true,
             }
                     break;
@@ -986,7 +986,7 @@
                 weight: 1,
                 fill: true,
                 fillOpacity: 1,
-                fillColor: 'rgba(51,200,17,1.0)',
+                fillColor: 'rgba(195,85,238,1.0)',
                 interactive: true,
             }
                     break;
@@ -1002,7 +1002,7 @@
                 weight: 1,
                 fill: true,
                 fillOpacity: 1,
-                fillColor: 'rgba(69,237,114,1.0)',
+                fillColor: 'rgba(89,237,131,1.0)',
                 interactive: true,
             }
                     break;
@@ -1018,7 +1018,7 @@
                 weight: 1,
                 fill: true,
                 fillOpacity: 1,
-                fillColor: 'rgba(57,207,230,1.0)',
+                fillColor: 'rgba(85,221,16,1.0)',
                 interactive: true,
             }
                     break;
@@ -1034,7 +1034,7 @@
                 weight: 1,
                 fill: true,
                 fillOpacity: 1,
-                fillColor: 'rgba(111,205,196,1.0)',
+                fillColor: 'rgba(107,165,231,1.0)',
                 interactive: true,
             }
                     break;
@@ -1050,7 +1050,7 @@
                 weight: 1,
                 fill: true,
                 fillOpacity: 1,
-                fillColor: 'rgba(89,223,230,1.0)',
+                fillColor: 'rgba(74,230,168,1.0)',
                 interactive: true,
             }
                     break;
@@ -1066,7 +1066,7 @@
                 weight: 1,
                 fill: true,
                 fillOpacity: 1,
-                fillColor: 'rgba(35,53,216,1.0)',
+                fillColor: 'rgba(157,232,132,1.0)',
                 interactive: true,
             }
                     break;
@@ -1082,7 +1082,7 @@
                 weight: 1,
                 fill: true,
                 fillOpacity: 1,
-                fillColor: 'rgba(215,115,95,1.0)',
+                fillColor: 'rgba(236,197,126,1.0)',
                 interactive: true,
             }
                     break;
@@ -1098,7 +1098,7 @@
                 weight: 1,
                 fill: true,
                 fillOpacity: 1,
-                fillColor: 'rgba(205,232,131,1.0)',
+                fillColor: 'rgba(208,28,106,1.0)',
                 interactive: true,
             }
                     break;
@@ -1114,7 +1114,7 @@
                 weight: 1,
                 fill: true,
                 fillOpacity: 1,
-                fillColor: 'rgba(151,214,107,1.0)',
+                fillColor: 'rgba(192,215,98,1.0)',
                 interactive: true,
             }
                     break;
@@ -1130,7 +1130,7 @@
                 weight: 1,
                 fill: true,
                 fillOpacity: 1,
-                fillColor: 'rgba(46,122,204,1.0)',
+                fillColor: 'rgba(143,134,224,1.0)',
                 interactive: true,
             }
                     break;
@@ -1146,7 +1146,7 @@
                 weight: 1,
                 fill: true,
                 fillOpacity: 1,
-                fillColor: 'rgba(184,122,203,1.0)',
+                fillColor: 'rgba(42,158,230,1.0)',
                 interactive: true,
             }
                     break;
@@ -1162,7 +1162,7 @@
                 weight: 1,
                 fill: true,
                 fillOpacity: 1,
-                fillColor: 'rgba(215,92,35,1.0)',
+                fillColor: 'rgba(86,233,69,1.0)',
                 interactive: true,
             }
                     break;
@@ -1178,7 +1178,7 @@
                 weight: 1,
                 fill: true,
                 fillOpacity: 1,
-                fillColor: 'rgba(31,202,145,1.0)',
+                fillColor: 'rgba(14,217,24,1.0)',
                 interactive: true,
             }
                     break;
@@ -1194,7 +1194,7 @@
                 weight: 1,
                 fill: true,
                 fillOpacity: 1,
-                fillColor: 'rgba(134,55,232,1.0)',
+                fillColor: 'rgba(229,204,15,1.0)',
                 interactive: true,
             }
                     break;
@@ -1210,7 +1210,7 @@
                 weight: 1,
                 fill: true,
                 fillOpacity: 1,
-                fillColor: 'rgba(67,208,74,1.0)',
+                fillColor: 'rgba(218,119,185,1.0)',
                 interactive: true,
             }
                     break;
@@ -1226,7 +1226,7 @@
                 weight: 1,
                 fill: true,
                 fillOpacity: 1,
-                fillColor: 'rgba(171,224,98,1.0)',
+                fillColor: 'rgba(200,89,172,1.0)',
                 interactive: true,
             }
                     break;
@@ -1242,7 +1242,7 @@
                 weight: 1,
                 fill: true,
                 fillOpacity: 1,
-                fillColor: 'rgba(114,153,212,1.0)',
+                fillColor: 'rgba(61,214,82,1.0)',
                 interactive: true,
             }
                     break;
@@ -1258,7 +1258,7 @@
                 weight: 1,
                 fill: true,
                 fillOpacity: 1,
-                fillColor: 'rgba(59,233,161,1.0)',
+                fillColor: 'rgba(163,229,40,1.0)',
                 interactive: true,
             }
                     break;
@@ -1274,7 +1274,7 @@
                 weight: 1,
                 fill: true,
                 fillOpacity: 1,
-                fillColor: 'rgba(58,83,204,1.0)',
+                fillColor: 'rgba(193,200,52,1.0)',
                 interactive: true,
             }
                     break;
@@ -1290,7 +1290,7 @@
                 weight: 1,
                 fill: true,
                 fillOpacity: 1,
-                fillColor: 'rgba(111,136,211,1.0)',
+                fillColor: 'rgba(161,213,28,1.0)',
                 interactive: true,
             }
                     break;
@@ -1306,7 +1306,7 @@
                 weight: 1,
                 fill: true,
                 fillOpacity: 1,
-                fillColor: 'rgba(219,64,64,1.0)',
+                fillColor: 'rgba(67,207,195,1.0)',
                 interactive: true,
             }
                     break;
@@ -1322,7 +1322,7 @@
                 weight: 1,
                 fill: true,
                 fillOpacity: 1,
-                fillColor: 'rgba(97,206,202,1.0)',
+                fillColor: 'rgba(97,106,239,1.0)',
                 interactive: true,
             }
                     break;
@@ -1338,7 +1338,7 @@
                 weight: 1,
                 fill: true,
                 fillOpacity: 1,
-                fillColor: 'rgba(59,237,148,1.0)',
+                fillColor: 'rgba(171,93,230,1.0)',
                 interactive: true,
             }
                     break;
@@ -1354,7 +1354,7 @@
                 weight: 1,
                 fill: true,
                 fillOpacity: 1,
-                fillColor: 'rgba(54,196,231,1.0)',
+                fillColor: 'rgba(58,29,203,1.0)',
                 interactive: true,
             }
                     break;
@@ -1370,7 +1370,7 @@
                 weight: 1,
                 fill: true,
                 fillOpacity: 1,
-                fillColor: 'rgba(202,135,48,1.0)',
+                fillColor: 'rgba(135,84,237,1.0)',
                 interactive: true,
             }
                     break;
@@ -1386,7 +1386,7 @@
                 weight: 1,
                 fill: true,
                 fillOpacity: 1,
-                fillColor: 'rgba(234,65,116,1.0)',
+                fillColor: 'rgba(61,84,227,1.0)',
                 interactive: true,
             }
                     break;
@@ -1402,7 +1402,7 @@
                 weight: 1,
                 fill: true,
                 fillOpacity: 1,
-                fillColor: 'rgba(190,96,209,1.0)',
+                fillColor: 'rgba(127,210,109,1.0)',
                 interactive: true,
             }
                     break;
@@ -1446,7 +1446,7 @@
             layer: layer_Especies_1,
             initial: false,
             hideMarkerOnCollapse: true,
-            propertyName: 'Área verde'}));
+            propertyName: 'Filtro de área verde'}));
         document.getElementsByClassName('search-button')[0].className +=
          ' fa fa-binoculars';
         var mapDiv = document.getElementById('map');
@@ -1468,7 +1468,7 @@
         document.getElementById("all").appendChild(col1);
         document.getElementById("all").appendChild(col2);
         col1.appendChild(mapDiv)
-        var Filters = {"Área verde": "str","Especie": "str"};
+        var Filters = {"Filtro de área verde": "str","Filtro de especie": "str"};
         function filterFunc() {
           map.eachLayer(function(lyr){
           if ("options" in lyr && "dataVar" in lyr["options"]){
@@ -1560,148 +1560,148 @@
         }
             document.getElementById("menu").appendChild(
                 document.createElement("div"));
-            var div_reaverde = document.createElement('div');
-            div_reaverde.id = "div_reaverde";
-            div_reaverde.className= "filterselect";
-            document.getElementById("menu").appendChild(div_reaverde);
-            sel_reaverde = document.createElement('select');
-            sel_reaverde.multiple = true;
-            sel_reaverde.size = 10;
-            sel_reaverde.id = "sel_reaverde";
-            var reaverde_options_str = "<option value='' unselected></option>";
-            sel_reaverde.onchange = function(){filterFunc()};
-            reaverde_options_str  += '<option value="Chorotega">Chorotega</option>';
-            reaverde_options_str  += '<option value="Las Palmas">Las Palmas</option>';
-            reaverde_options_str  += '<option value="Los Ángeles">Los Ángeles</option>';
-            reaverde_options_str  += '<option value="Mercado Cañas">Mercado Cañas</option>';
-            reaverde_options_str  += '<option value="Parque Central">Parque Central</option>';
-            reaverde_options_str  += '<option value="Parque Colón">Parque Colón</option>';
-            reaverde_options_str  += '<option value="Parque INVU">Parque INVU</option>';
-            reaverde_options_str  += '<option value="Polideportivo">Polideportivo</option>';
-            reaverde_options_str  += '<option value="Separador de vía">Separador de vía</option>';
-            reaverde_options_str  += '<option value="Tres Marías">Tres Marías</option>';
-            sel_reaverde.innerHTML = reaverde_options_str;
-            div_reaverde.appendChild(sel_reaverde);
-            var lab_reaverde = document.createElement('div');
-            lab_reaverde.innerHTML = 'Área verde';
-            lab_reaverde.className = 'filterlabel';
-            div_reaverde.appendChild(lab_reaverde);
-            var reset_reaverde = document.createElement('div');
-            reset_reaverde.innerHTML = 'clear filter';
-            reset_reaverde.className = 'filterlabel';
-            reset_reaverde.onclick = function() {
-                var options = document.getElementById("sel_reaverde").options;
+            var div_Filtrodereaverde = document.createElement('div');
+            div_Filtrodereaverde.id = "div_Filtrodereaverde";
+            div_Filtrodereaverde.className= "filterselect";
+            document.getElementById("menu").appendChild(div_Filtrodereaverde);
+            sel_Filtrodereaverde = document.createElement('select');
+            sel_Filtrodereaverde.multiple = true;
+            sel_Filtrodereaverde.size = 10;
+            sel_Filtrodereaverde.id = "sel_Filtrodereaverde";
+            var Filtrodereaverde_options_str = "<option value='' unselected></option>";
+            sel_Filtrodereaverde.onchange = function(){filterFunc()};
+            Filtrodereaverde_options_str  += '<option value="Chorotega">Chorotega</option>';
+            Filtrodereaverde_options_str  += '<option value="Las Palmas">Las Palmas</option>';
+            Filtrodereaverde_options_str  += '<option value="Los Ángeles">Los Ángeles</option>';
+            Filtrodereaverde_options_str  += '<option value="Mercado Cañas">Mercado Cañas</option>';
+            Filtrodereaverde_options_str  += '<option value="Parque Central">Parque Central</option>';
+            Filtrodereaverde_options_str  += '<option value="Parque Colón">Parque Colón</option>';
+            Filtrodereaverde_options_str  += '<option value="Parque INVU">Parque INVU</option>';
+            Filtrodereaverde_options_str  += '<option value="Polideportivo">Polideportivo</option>';
+            Filtrodereaverde_options_str  += '<option value="Separador de vía">Separador de vía</option>';
+            Filtrodereaverde_options_str  += '<option value="Tres Marías">Tres Marías</option>';
+            sel_Filtrodereaverde.innerHTML = Filtrodereaverde_options_str;
+            div_Filtrodereaverde.appendChild(sel_Filtrodereaverde);
+            var lab_Filtrodereaverde = document.createElement('div');
+            lab_Filtrodereaverde.innerHTML = 'Filtro de área verde';
+            lab_Filtrodereaverde.className = 'filterlabel';
+            div_Filtrodereaverde.appendChild(lab_Filtrodereaverde);
+            var reset_Filtrodereaverde = document.createElement('div');
+            reset_Filtrodereaverde.innerHTML = 'clear filter';
+            reset_Filtrodereaverde.className = 'filterlabel';
+            reset_Filtrodereaverde.onclick = function() {
+                var options = document.getElementById("sel_Filtrodereaverde").options;
                 for (var i=0; i < options.length; i++) {
                     options[i].selected = false;
                 }
                 filterFunc();
             };
-            div_reaverde.appendChild(reset_reaverde);
+            div_Filtrodereaverde.appendChild(reset_Filtrodereaverde);
             document.getElementById("menu").appendChild(
                 document.createElement("div"));
-            var div_Especie = document.createElement('div');
-            div_Especie.id = "div_Especie";
-            div_Especie.className= "filterselect";
-            document.getElementById("menu").appendChild(div_Especie);
-            sel_Especie = document.createElement('select');
-            sel_Especie.multiple = true;
-            sel_Especie.size = 10;
-            sel_Especie.id = "sel_Especie";
-            var Especie_options_str = "<option value='' unselected></option>";
-            sel_Especie.onchange = function(){filterFunc()};
-            Especie_options_str  += '<option value="Acacia mangium">Acacia mangium</option>';
-            Especie_options_str  += '<option value="Acaciella angustissima">Acaciella angustissima</option>';
-            Especie_options_str  += '<option value="Adonidia merrillii">Adonidia merrillii</option>';
-            Especie_options_str  += '<option value="Anacardium occidentale">Anacardium occidentale</option>';
-            Especie_options_str  += '<option value="Andira inermis">Andira inermis</option>';
-            Especie_options_str  += '<option value="Annona muricata">Annona muricata</option>';
-            Especie_options_str  += '<option value="Astronium graveolens">Astronium graveolens</option>';
-            Especie_options_str  += '<option value="Azadirachta indica">Azadirachta indica</option>';
-            Especie_options_str  += '<option value="Bunchosia sp.">Bunchosia sp.</option>';
-            Especie_options_str  += '<option value="Byrsonima crassifolia">Byrsonima crassifolia</option>';
-            Especie_options_str  += '<option value="Caesalpinia pulcherrima">Caesalpinia pulcherrima</option>';
-            Especie_options_str  += '<option value="Calycophyllum candidissimum">Calycophyllum candidissimum</option>';
-            Especie_options_str  += '<option value="Cascabela thevetia">Cascabela thevetia</option>';
-            Especie_options_str  += '<option value="Cassia fistula">Cassia fistula</option>';
-            Especie_options_str  += '<option value="Cassia grandis">Cassia grandis</option>';
-            Especie_options_str  += '<option value="Cedrela odorata">Cedrela odorata</option>';
-            Especie_options_str  += '<option value="Ceiba pentandra">Ceiba pentandra</option>';
-            Especie_options_str  += '<option value="Cenostigma eriostachys">Cenostigma eriostachys</option>';
-            Especie_options_str  += '<option value="Chrysophyllum cainito">Chrysophyllum cainito</option>';
-            Especie_options_str  += '<option value="Citrus spp.">Citrus spp.</option>';
-            Especie_options_str  += '<option value="Cnidoscolus aconitifolius">Cnidoscolus aconitifolius</option>';
-            Especie_options_str  += '<option value="Coccoloba caracasana">Coccoloba caracasana</option>';
-            Especie_options_str  += '<option value="Coccoloba uvifera">Coccoloba uvifera</option>';
-            Especie_options_str  += '<option value="Cocos nucifera">Cocos nucifera</option>';
-            Especie_options_str  += '<option value="Cojoba arborea">Cojoba arborea</option>';
-            Especie_options_str  += '<option value="Cordia dentata">Cordia dentata</option>';
-            Especie_options_str  += '<option value="Crescentia alata">Crescentia alata</option>';
-            Especie_options_str  += '<option value="Crescentia cujete">Crescentia cujete</option>';
-            Especie_options_str  += '<option value="Dalbergia retusa">Dalbergia retusa</option>';
-            Especie_options_str  += '<option value="Delonix regia">Delonix regia</option>';
-            Especie_options_str  += '<option value="Diphysa americana">Diphysa americana</option>';
-            Especie_options_str  += '<option value="Enterolobium cyclocarpum">Enterolobium cyclocarpum</option>';
-            Especie_options_str  += '<option value="Erythrina variegata">Erythrina variegata</option>';
-            Especie_options_str  += '<option value="Ficus benjamina">Ficus benjamina</option>';
-            Especie_options_str  += '<option value="Ficus cotinifolia">Ficus cotinifolia</option>';
-            Especie_options_str  += '<option value="Ficus goldmanii">Ficus goldmanii</option>';
-            Especie_options_str  += '<option value="Ficus sp.">Ficus sp.</option>';
-            Especie_options_str  += '<option value="Gliricidia sepium">Gliricidia sepium</option>';
-            Especie_options_str  += '<option value="Guazuma ulmifolia">Guazuma ulmifolia</option>';
-            Especie_options_str  += '<option value="Haematoxylum brasiletto">Haematoxylum brasiletto</option>';
-            Especie_options_str  += '<option value="Handroanthus impetiginosus">Handroanthus impetiginosus</option>';
-            Especie_options_str  += '<option value="Handroanthus ochraceus">Handroanthus ochraceus</option>';
-            Especie_options_str  += '<option value="Hura crepitans">Hura crepitans</option>';
-            Especie_options_str  += '<option value="Inga vera">Inga vera</option>';
-            Especie_options_str  += '<option value="Jacaranda mimosifolia">Jacaranda mimosifolia</option>';
-            Especie_options_str  += '<option value="Leucaena leucocephala">Leucaena leucocephala</option>';
-            Especie_options_str  += '<option value="Lonchocarpus felipei">Lonchocarpus felipei</option>';
-            Especie_options_str  += '<option value="Mangifera indica">Mangifera indica</option>';
-            Especie_options_str  += '<option value="Melicoccus bijugatus">Melicoccus bijugatus</option>';
-            Especie_options_str  += '<option value="Moringa oleifera">Moringa oleifera</option>';
-            Especie_options_str  += '<option value="Muerto">Muerto</option>';
-            Especie_options_str  += '<option value="Muntingia calabura">Muntingia calabura</option>';
-            Especie_options_str  += '<option value="Platymiscium parviflorum">Platymiscium parviflorum</option>';
-            Especie_options_str  += '<option value="Platymiscium pinnatum">Platymiscium pinnatum</option>';
-            Especie_options_str  += '<option value="Plumeria rubra">Plumeria rubra</option>';
-            Especie_options_str  += '<option value="Pochota fendleri">Pochota fendleri</option>';
-            Especie_options_str  += '<option value="Pseudalbizzia adinocephala">Pseudalbizzia adinocephala</option>';
-            Especie_options_str  += '<option value="Pseudalbizzia niopoides">Pseudalbizzia niopoides</option>';
-            Especie_options_str  += '<option value="Pseudobombax septenatum">Pseudobombax septenatum</option>';
-            Especie_options_str  += '<option value="Pseudosamanea guachapele">Pseudosamanea guachapele</option>';
-            Especie_options_str  += '<option value="Pterocarpus orbiculatus">Pterocarpus orbiculatus</option>';
-            Especie_options_str  += '<option value="Samanea saman">Samanea saman</option>';
-            Especie_options_str  += '<option value="Schizolobium parahyba">Schizolobium parahyba</option>';
-            Especie_options_str  += '<option value="Senna atomaria">Senna atomaria</option>';
-            Especie_options_str  += '<option value="Senna siamea">Senna siamea</option>';
-            Especie_options_str  += '<option value="Simarouba amara">Simarouba amara</option>';
-            Especie_options_str  += '<option value="Simarouba glauca">Simarouba glauca</option>';
-            Especie_options_str  += '<option value="Spathodea campanulata">Spathodea campanulata</option>';
-            Especie_options_str  += '<option value="Spondias purpurea">Spondias purpurea</option>';
-            Especie_options_str  += '<option value="Swietenia humilis">Swietenia humilis</option>';
-            Especie_options_str  += '<option value="Tabebuia rosea">Tabebuia rosea</option>';
-            Especie_options_str  += '<option value="Tecoma stans">Tecoma stans</option>';
-            Especie_options_str  += '<option value="Terminalia catappa">Terminalia catappa</option>';
-            Especie_options_str  += '<option value="Terminalia ivorensis">Terminalia ivorensis</option>';
-            Especie_options_str  += '<option value="Terminalia mantaly">Terminalia mantaly</option>';
-            Especie_options_str  += '<option value="Ziziphus mauritiana">Ziziphus mauritiana</option>';
-            sel_Especie.innerHTML = Especie_options_str;
-            div_Especie.appendChild(sel_Especie);
-            var lab_Especie = document.createElement('div');
-            lab_Especie.innerHTML = 'Especie';
-            lab_Especie.className = 'filterlabel';
-            div_Especie.appendChild(lab_Especie);
-            var reset_Especie = document.createElement('div');
-            reset_Especie.innerHTML = 'clear filter';
-            reset_Especie.className = 'filterlabel';
-            reset_Especie.onclick = function() {
-                var options = document.getElementById("sel_Especie").options;
+            var div_Filtrodeespecie = document.createElement('div');
+            div_Filtrodeespecie.id = "div_Filtrodeespecie";
+            div_Filtrodeespecie.className= "filterselect";
+            document.getElementById("menu").appendChild(div_Filtrodeespecie);
+            sel_Filtrodeespecie = document.createElement('select');
+            sel_Filtrodeespecie.multiple = true;
+            sel_Filtrodeespecie.size = 10;
+            sel_Filtrodeespecie.id = "sel_Filtrodeespecie";
+            var Filtrodeespecie_options_str = "<option value='' unselected></option>";
+            sel_Filtrodeespecie.onchange = function(){filterFunc()};
+            Filtrodeespecie_options_str  += '<option value="Acacia mangium">Acacia mangium</option>';
+            Filtrodeespecie_options_str  += '<option value="Acaciella angustissima">Acaciella angustissima</option>';
+            Filtrodeespecie_options_str  += '<option value="Adonidia merrillii">Adonidia merrillii</option>';
+            Filtrodeespecie_options_str  += '<option value="Anacardium occidentale">Anacardium occidentale</option>';
+            Filtrodeespecie_options_str  += '<option value="Andira inermis">Andira inermis</option>';
+            Filtrodeespecie_options_str  += '<option value="Annona muricata">Annona muricata</option>';
+            Filtrodeespecie_options_str  += '<option value="Astronium graveolens">Astronium graveolens</option>';
+            Filtrodeespecie_options_str  += '<option value="Azadirachta indica">Azadirachta indica</option>';
+            Filtrodeespecie_options_str  += '<option value="Bunchosia sp.">Bunchosia sp.</option>';
+            Filtrodeespecie_options_str  += '<option value="Byrsonima crassifolia">Byrsonima crassifolia</option>';
+            Filtrodeespecie_options_str  += '<option value="Caesalpinia pulcherrima">Caesalpinia pulcherrima</option>';
+            Filtrodeespecie_options_str  += '<option value="Calycophyllum candidissimum">Calycophyllum candidissimum</option>';
+            Filtrodeespecie_options_str  += '<option value="Cascabela thevetia">Cascabela thevetia</option>';
+            Filtrodeespecie_options_str  += '<option value="Cassia fistula">Cassia fistula</option>';
+            Filtrodeespecie_options_str  += '<option value="Cassia grandis">Cassia grandis</option>';
+            Filtrodeespecie_options_str  += '<option value="Cedrela odorata">Cedrela odorata</option>';
+            Filtrodeespecie_options_str  += '<option value="Ceiba pentandra">Ceiba pentandra</option>';
+            Filtrodeespecie_options_str  += '<option value="Cenostigma eriostachys">Cenostigma eriostachys</option>';
+            Filtrodeespecie_options_str  += '<option value="Chrysophyllum cainito">Chrysophyllum cainito</option>';
+            Filtrodeespecie_options_str  += '<option value="Citrus spp.">Citrus spp.</option>';
+            Filtrodeespecie_options_str  += '<option value="Cnidoscolus aconitifolius">Cnidoscolus aconitifolius</option>';
+            Filtrodeespecie_options_str  += '<option value="Coccoloba caracasana">Coccoloba caracasana</option>';
+            Filtrodeespecie_options_str  += '<option value="Coccoloba uvifera">Coccoloba uvifera</option>';
+            Filtrodeespecie_options_str  += '<option value="Cocos nucifera">Cocos nucifera</option>';
+            Filtrodeespecie_options_str  += '<option value="Cojoba arborea">Cojoba arborea</option>';
+            Filtrodeespecie_options_str  += '<option value="Cordia dentata">Cordia dentata</option>';
+            Filtrodeespecie_options_str  += '<option value="Crescentia alata">Crescentia alata</option>';
+            Filtrodeespecie_options_str  += '<option value="Crescentia cujete">Crescentia cujete</option>';
+            Filtrodeespecie_options_str  += '<option value="Dalbergia retusa">Dalbergia retusa</option>';
+            Filtrodeespecie_options_str  += '<option value="Delonix regia">Delonix regia</option>';
+            Filtrodeespecie_options_str  += '<option value="Diphysa americana">Diphysa americana</option>';
+            Filtrodeespecie_options_str  += '<option value="Enterolobium cyclocarpum">Enterolobium cyclocarpum</option>';
+            Filtrodeespecie_options_str  += '<option value="Erythrina variegata">Erythrina variegata</option>';
+            Filtrodeespecie_options_str  += '<option value="Ficus benjamina">Ficus benjamina</option>';
+            Filtrodeespecie_options_str  += '<option value="Ficus cotinifolia">Ficus cotinifolia</option>';
+            Filtrodeespecie_options_str  += '<option value="Ficus goldmanii">Ficus goldmanii</option>';
+            Filtrodeespecie_options_str  += '<option value="Ficus sp.">Ficus sp.</option>';
+            Filtrodeespecie_options_str  += '<option value="Gliricidia sepium">Gliricidia sepium</option>';
+            Filtrodeespecie_options_str  += '<option value="Guazuma ulmifolia">Guazuma ulmifolia</option>';
+            Filtrodeespecie_options_str  += '<option value="Haematoxylum brasiletto">Haematoxylum brasiletto</option>';
+            Filtrodeespecie_options_str  += '<option value="Handroanthus impetiginosus">Handroanthus impetiginosus</option>';
+            Filtrodeespecie_options_str  += '<option value="Handroanthus ochraceus">Handroanthus ochraceus</option>';
+            Filtrodeespecie_options_str  += '<option value="Hura crepitans">Hura crepitans</option>';
+            Filtrodeespecie_options_str  += '<option value="Inga vera">Inga vera</option>';
+            Filtrodeespecie_options_str  += '<option value="Jacaranda mimosifolia">Jacaranda mimosifolia</option>';
+            Filtrodeespecie_options_str  += '<option value="Leucaena leucocephala">Leucaena leucocephala</option>';
+            Filtrodeespecie_options_str  += '<option value="Lonchocarpus felipei">Lonchocarpus felipei</option>';
+            Filtrodeespecie_options_str  += '<option value="Mangifera indica">Mangifera indica</option>';
+            Filtrodeespecie_options_str  += '<option value="Melicoccus bijugatus">Melicoccus bijugatus</option>';
+            Filtrodeespecie_options_str  += '<option value="Moringa oleifera">Moringa oleifera</option>';
+            Filtrodeespecie_options_str  += '<option value="Muerto">Muerto</option>';
+            Filtrodeespecie_options_str  += '<option value="Muntingia calabura">Muntingia calabura</option>';
+            Filtrodeespecie_options_str  += '<option value="Platymiscium parviflorum">Platymiscium parviflorum</option>';
+            Filtrodeespecie_options_str  += '<option value="Platymiscium pinnatum">Platymiscium pinnatum</option>';
+            Filtrodeespecie_options_str  += '<option value="Plumeria rubra">Plumeria rubra</option>';
+            Filtrodeespecie_options_str  += '<option value="Pochota fendleri">Pochota fendleri</option>';
+            Filtrodeespecie_options_str  += '<option value="Pseudalbizzia adinocephala">Pseudalbizzia adinocephala</option>';
+            Filtrodeespecie_options_str  += '<option value="Pseudalbizzia niopoides">Pseudalbizzia niopoides</option>';
+            Filtrodeespecie_options_str  += '<option value="Pseudobombax septenatum">Pseudobombax septenatum</option>';
+            Filtrodeespecie_options_str  += '<option value="Pseudosamanea guachapele">Pseudosamanea guachapele</option>';
+            Filtrodeespecie_options_str  += '<option value="Pterocarpus orbiculatus">Pterocarpus orbiculatus</option>';
+            Filtrodeespecie_options_str  += '<option value="Samanea saman">Samanea saman</option>';
+            Filtrodeespecie_options_str  += '<option value="Schizolobium parahyba">Schizolobium parahyba</option>';
+            Filtrodeespecie_options_str  += '<option value="Senna atomaria">Senna atomaria</option>';
+            Filtrodeespecie_options_str  += '<option value="Senna siamea">Senna siamea</option>';
+            Filtrodeespecie_options_str  += '<option value="Simarouba amara">Simarouba amara</option>';
+            Filtrodeespecie_options_str  += '<option value="Simarouba glauca">Simarouba glauca</option>';
+            Filtrodeespecie_options_str  += '<option value="Spathodea campanulata">Spathodea campanulata</option>';
+            Filtrodeespecie_options_str  += '<option value="Spondias purpurea">Spondias purpurea</option>';
+            Filtrodeespecie_options_str  += '<option value="Swietenia humilis">Swietenia humilis</option>';
+            Filtrodeespecie_options_str  += '<option value="Tabebuia rosea">Tabebuia rosea</option>';
+            Filtrodeespecie_options_str  += '<option value="Tecoma stans">Tecoma stans</option>';
+            Filtrodeespecie_options_str  += '<option value="Terminalia catappa">Terminalia catappa</option>';
+            Filtrodeespecie_options_str  += '<option value="Terminalia ivorensis">Terminalia ivorensis</option>';
+            Filtrodeespecie_options_str  += '<option value="Terminalia mantaly">Terminalia mantaly</option>';
+            Filtrodeespecie_options_str  += '<option value="Ziziphus mauritiana">Ziziphus mauritiana</option>';
+            sel_Filtrodeespecie.innerHTML = Filtrodeespecie_options_str;
+            div_Filtrodeespecie.appendChild(sel_Filtrodeespecie);
+            var lab_Filtrodeespecie = document.createElement('div');
+            lab_Filtrodeespecie.innerHTML = 'Filtro de especie';
+            lab_Filtrodeespecie.className = 'filterlabel';
+            div_Filtrodeespecie.appendChild(lab_Filtrodeespecie);
+            var reset_Filtrodeespecie = document.createElement('div');
+            reset_Filtrodeespecie.innerHTML = 'clear filter';
+            reset_Filtrodeespecie.className = 'filterlabel';
+            reset_Filtrodeespecie.onclick = function() {
+                var options = document.getElementById("sel_Filtrodeespecie").options;
                 for (var i=0; i < options.length; i++) {
                     options[i].selected = false;
                 }
                 filterFunc();
             };
-            div_Especie.appendChild(reset_Especie);
+            div_Filtrodeespecie.appendChild(reset_Filtrodeespecie);
         </script>
     </body>
 </html>
