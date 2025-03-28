@@ -53,7 +53,7 @@
         }
         var map = L.map('map', {
             zoomControl:false, maxZoom:28, minZoom:1
-        }).fitBounds([[10.422432633047599,-85.10475222621798],[10.439791436670555,-85.06667194763892]]);
+        }).fitBounds([[10.42741510460941,-85.0992970355503],[10.433497732525321,-85.08595400282513]]);
         var hash = new L.Hash(map);
         map.attributionControl.setPrefix('<a href="https://github.com/tomchadwin/qgis2web" target="_blank">qgis2web</a> &middot; <a href="https://leafletjs.com" title="A JS library for interactive maps">Leaflet</a> &middot; <a href="https://qgis.org">QGIS</a>');
         var autolinker = new Autolinker({truncate: {length: 30, location: 'smart'}});
@@ -85,7 +85,7 @@
 				popup._contentNode.classList.remove('media');
 			}
 		}
-        var title = new L.Control({'position':'bottomright'});
+        var title = new L.Control({'position':'bottomleft'});
         title.onAdd = function (map) {
             this._div = L.DomUtil.create('div', 'info');
             this.update();
@@ -113,7 +113,7 @@
             abstract.show = function () {
                 this._div.classList.remove("abstract");
                 this._div.classList.add("abstractUncollapsed");
-                this._div.innerHTML = 'Por medio de este mapa usted puede conocer las especies arbóreas (nombre científico y común) presentes en las principales áreas verdes públicas del casco central de Cañas, Guanacaste. <br /><br />Puede filtrar el resultado según área verde, especie, o ambas.<br /><br />Puede buscar un área verde en específco utilizando el ícono de los binoculares.<br /><br />"Proyecto Gestión del Arbolado Urbano en las Ciudades de Nicoya, Cañas y Liberia para Favorecer el Bienestar de los Habitantes"<br /><br />Centro Mesoamericano de Desarrollo Sostenible del Trópico Seco, Universidad Nacional.<br /><br />Programa de Biodiversidad Forestal y Bioeconomía, Universidad Nacional.<br /><br />Municipalidad de Cañas<br /><br />Elaborado por: Ing. José Felipe Novo Durón. 2025.';
+                this._div.innerHTML = 'Por medio de este mapa usted puede conocer las especies arbóreas (nombre científico y común) presentes en las principales áreas verdes públicas del casco central de Cañas, Guanacaste. <br /><br />Puede filtrar el resultado según área verde, especie, o ambas utilizando las herramientas de la derecha.<br /><br />Puede buscar un área verde en específco utilizando el ícono de los binoculares.<br /><br />"Proyecto Gestión del Arbolado Urbano en las Ciudades de Nicoya, Cañas y Liberia para Favorecer el Bienestar de los Habitantes"<br /><br />Centro Mesoamericano de Desarrollo Sostenible del Trópico Seco, Universidad Nacional.<br /><br />Programa de Biodiversidad Forestal y Bioeconomía, Universidad Nacional.<br /><br />Municipalidad de Cañas<br /><br />Elaborado por: Ing. José Felipe Novo Durón. 2025.';
         };
         abstract.addTo(map);
         var zoomControl = L.control.zoom({
@@ -165,20 +165,20 @@
                         <td>' + (feature.properties['Ciudad'] !== null ? autolinker.link(String(feature.properties['Ciudad']).replace(/'/g, '\'').toLocaleString()) : '') + '</td>\
                     </tr>\
                     <tr>\
-                        <th scope="row">Filtro de área verde</th>\
+                        <th scope="row">Área verde:</th>\
                         <td>' + (feature.properties['Filtro de área verde'] !== null ? autolinker.link(String(feature.properties['Filtro de área verde']).replace(/'/g, '\'').toLocaleString()) : '') + '</td>\
                     </tr>\
                     <tr>\
-                        <th scope="row">Filtro de especie</th>\
+                        <th scope="row">Especie:</th>\
                         <td>' + (feature.properties['Filtro de especie'] !== null ? autolinker.link(String(feature.properties['Filtro de especie']).replace(/'/g, '\'').toLocaleString()) : '') + '</td>\
                     </tr>\
                     <tr>\
-                        <th scope="row">Nombre común</th>\
-                        <td>' + (feature.properties['Nombre común'] !== null ? autolinker.link(String(feature.properties['Nombre común']).replace(/'/g, '\'').toLocaleString()) : '') + '</td>\
+                        <th scope="row">Nombre común:</th>\
+                        <td>' + (feature.properties['Nombre com'] !== null ? autolinker.link(String(feature.properties['Nombre com']).replace(/'/g, '\'').toLocaleString()) : '') + '</td>\
                     </tr>\
                     <tr>\
                         <th scope="row">Imagen:</th>\
-                        <td>' + (feature.properties['Imagen'] !== null ? autolinker.link(String(feature.properties['Imagen']).replace(/'/g, '\'').toLocaleString()) : '') + '</td>\
+                        <td>' + (feature.properties['Imagen'] !== null ? '<img src="images/' + String(feature.properties['Imagen']).replace(/[\\/:]/g, '_').trim().replace(/'/g, '\'').replace(/"/g, '&quot;') + '">' : '') + '</td>\
                     </tr>\
                 </table>';
             var content = removeEmptyRowsFromPopupContent(popupContent, feature);
@@ -202,7 +202,7 @@
                 weight: 1,
                 fill: true,
                 fillOpacity: 1,
-                fillColor: 'rgba(177,94,225,1.0)',
+                fillColor: 'rgba(223,226,50,1.0)',
                 interactive: true,
             }
                     break;
@@ -218,7 +218,7 @@
                 weight: 1,
                 fill: true,
                 fillOpacity: 1,
-                fillColor: 'rgba(103,101,230,1.0)',
+                fillColor: 'rgba(231,134,150,1.0)',
                 interactive: true,
             }
                     break;
@@ -234,7 +234,7 @@
                 weight: 1,
                 fill: true,
                 fillOpacity: 1,
-                fillColor: 'rgba(231,185,59,1.0)',
+                fillColor: 'rgba(240,180,39,1.0)',
                 interactive: true,
             }
                     break;
@@ -250,7 +250,7 @@
                 weight: 1,
                 fill: true,
                 fillOpacity: 1,
-                fillColor: 'rgba(145,65,231,1.0)',
+                fillColor: 'rgba(57,231,118,1.0)',
                 interactive: true,
             }
                     break;
@@ -266,7 +266,7 @@
                 weight: 1,
                 fill: true,
                 fillOpacity: 1,
-                fillColor: 'rgba(238,179,120,1.0)',
+                fillColor: 'rgba(120,203,99,1.0)',
                 interactive: true,
             }
                     break;
@@ -282,7 +282,7 @@
                 weight: 1,
                 fill: true,
                 fillOpacity: 1,
-                fillColor: 'rgba(110,33,225,1.0)',
+                fillColor: 'rgba(124,227,45,1.0)',
                 interactive: true,
             }
                     break;
@@ -298,7 +298,7 @@
                 weight: 1,
                 fill: true,
                 fillOpacity: 1,
-                fillColor: 'rgba(214,26,211,1.0)',
+                fillColor: 'rgba(49,231,128,1.0)',
                 interactive: true,
             }
                     break;
@@ -314,7 +314,7 @@
                 weight: 1,
                 fill: true,
                 fillOpacity: 1,
-                fillColor: 'rgba(88,139,221,1.0)',
+                fillColor: 'rgba(96,214,222,1.0)',
                 interactive: true,
             }
                     break;
@@ -330,7 +330,7 @@
                 weight: 1,
                 fill: true,
                 fillOpacity: 1,
-                fillColor: 'rgba(236,101,117,1.0)',
+                fillColor: 'rgba(109,218,200,1.0)',
                 interactive: true,
             }
                     break;
@@ -346,7 +346,7 @@
                 weight: 1,
                 fill: true,
                 fillOpacity: 1,
-                fillColor: 'rgba(204,111,130,1.0)',
+                fillColor: 'rgba(225,109,88,1.0)',
                 interactive: true,
             }
                     break;
@@ -362,7 +362,7 @@
                 weight: 1,
                 fill: true,
                 fillOpacity: 1,
-                fillColor: 'rgba(151,236,71,1.0)',
+                fillColor: 'rgba(220,138,86,1.0)',
                 interactive: true,
             }
                     break;
@@ -378,7 +378,7 @@
                 weight: 1,
                 fill: true,
                 fillOpacity: 1,
-                fillColor: 'rgba(29,208,205,1.0)',
+                fillColor: 'rgba(50,227,56,1.0)',
                 interactive: true,
             }
                     break;
@@ -394,7 +394,7 @@
                 weight: 1,
                 fill: true,
                 fillOpacity: 1,
-                fillColor: 'rgba(236,58,67,1.0)',
+                fillColor: 'rgba(238,116,154,1.0)',
                 interactive: true,
             }
                     break;
@@ -410,7 +410,7 @@
                 weight: 1,
                 fill: true,
                 fillOpacity: 1,
-                fillColor: 'rgba(43,229,111,1.0)',
+                fillColor: 'rgba(144,231,51,1.0)',
                 interactive: true,
             }
                     break;
@@ -426,7 +426,7 @@
                 weight: 1,
                 fill: true,
                 fillOpacity: 1,
-                fillColor: 'rgba(206,56,108,1.0)',
+                fillColor: 'rgba(237,192,137,1.0)',
                 interactive: true,
             }
                     break;
@@ -442,7 +442,7 @@
                 weight: 1,
                 fill: true,
                 fillOpacity: 1,
-                fillColor: 'rgba(206,105,211,1.0)',
+                fillColor: 'rgba(204,117,117,1.0)',
                 interactive: true,
             }
                     break;
@@ -458,7 +458,7 @@
                 weight: 1,
                 fill: true,
                 fillOpacity: 1,
-                fillColor: 'rgba(231,227,101,1.0)',
+                fillColor: 'rgba(52,186,223,1.0)',
                 interactive: true,
             }
                     break;
@@ -474,7 +474,7 @@
                 weight: 1,
                 fill: true,
                 fillOpacity: 1,
-                fillColor: 'rgba(178,18,222,1.0)',
+                fillColor: 'rgba(56,204,50,1.0)',
                 interactive: true,
             }
                     break;
@@ -490,7 +490,7 @@
                 weight: 1,
                 fill: true,
                 fillOpacity: 1,
-                fillColor: 'rgba(16,200,142,1.0)',
+                fillColor: 'rgba(105,223,211,1.0)',
                 interactive: true,
             }
                     break;
@@ -506,7 +506,7 @@
                 weight: 1,
                 fill: true,
                 fillOpacity: 1,
-                fillColor: 'rgba(61,104,206,1.0)',
+                fillColor: 'rgba(179,51,226,1.0)',
                 interactive: true,
             }
                     break;
@@ -522,7 +522,7 @@
                 weight: 1,
                 fill: true,
                 fillOpacity: 1,
-                fillColor: 'rgba(50,225,141,1.0)',
+                fillColor: 'rgba(215,117,88,1.0)',
                 interactive: true,
             }
                     break;
@@ -538,7 +538,7 @@
                 weight: 1,
                 fill: true,
                 fillOpacity: 1,
-                fillColor: 'rgba(45,156,203,1.0)',
+                fillColor: 'rgba(202,14,227,1.0)',
                 interactive: true,
             }
                     break;
@@ -554,7 +554,7 @@
                 weight: 1,
                 fill: true,
                 fillOpacity: 1,
-                fillColor: 'rgba(223,160,71,1.0)',
+                fillColor: 'rgba(235,156,123,1.0)',
                 interactive: true,
             }
                     break;
@@ -570,7 +570,7 @@
                 weight: 1,
                 fill: true,
                 fillOpacity: 1,
-                fillColor: 'rgba(204,91,30,1.0)',
+                fillColor: 'rgba(220,125,133,1.0)',
                 interactive: true,
             }
                     break;
@@ -586,7 +586,7 @@
                 weight: 1,
                 fill: true,
                 fillOpacity: 1,
-                fillColor: 'rgba(109,220,228,1.0)',
+                fillColor: 'rgba(60,225,79,1.0)',
                 interactive: true,
             }
                     break;
@@ -602,7 +602,7 @@
                 weight: 1,
                 fill: true,
                 fillOpacity: 1,
-                fillColor: 'rgba(145,207,101,1.0)',
+                fillColor: 'rgba(158,88,228,1.0)',
                 interactive: true,
             }
                     break;
@@ -618,7 +618,7 @@
                 weight: 1,
                 fill: true,
                 fillOpacity: 1,
-                fillColor: 'rgba(212,45,23,1.0)',
+                fillColor: 'rgba(19,208,57,1.0)',
                 interactive: true,
             }
                     break;
@@ -634,7 +634,7 @@
                 weight: 1,
                 fill: true,
                 fillOpacity: 1,
-                fillColor: 'rgba(215,88,41,1.0)',
+                fillColor: 'rgba(239,220,96,1.0)',
                 interactive: true,
             }
                     break;
@@ -650,7 +650,7 @@
                 weight: 1,
                 fill: true,
                 fillOpacity: 1,
-                fillColor: 'rgba(107,162,208,1.0)',
+                fillColor: 'rgba(77,169,227,1.0)',
                 interactive: true,
             }
                     break;
@@ -666,7 +666,7 @@
                 weight: 1,
                 fill: true,
                 fillOpacity: 1,
-                fillColor: 'rgba(190,207,65,1.0)',
+                fillColor: 'rgba(26,96,218,1.0)',
                 interactive: true,
             }
                     break;
@@ -682,7 +682,7 @@
                 weight: 1,
                 fill: true,
                 fillOpacity: 1,
-                fillColor: 'rgba(204,147,106,1.0)',
+                fillColor: 'rgba(235,142,135,1.0)',
                 interactive: true,
             }
                     break;
@@ -698,7 +698,7 @@
                 weight: 1,
                 fill: true,
                 fillOpacity: 1,
-                fillColor: 'rgba(222,109,175,1.0)',
+                fillColor: 'rgba(168,234,141,1.0)',
                 interactive: true,
             }
                     break;
@@ -714,7 +714,7 @@
                 weight: 1,
                 fill: true,
                 fillOpacity: 1,
-                fillColor: 'rgba(222,118,95,1.0)',
+                fillColor: 'rgba(21,117,200,1.0)',
                 interactive: true,
             }
                     break;
@@ -730,7 +730,7 @@
                 weight: 1,
                 fill: true,
                 fillOpacity: 1,
-                fillColor: 'rgba(134,222,238,1.0)',
+                fillColor: 'rgba(233,71,160,1.0)',
                 interactive: true,
             }
                     break;
@@ -746,7 +746,7 @@
                 weight: 1,
                 fill: true,
                 fillOpacity: 1,
-                fillColor: 'rgba(96,209,181,1.0)',
+                fillColor: 'rgba(126,69,205,1.0)',
                 interactive: true,
             }
                     break;
@@ -762,7 +762,7 @@
                 weight: 1,
                 fill: true,
                 fillOpacity: 1,
-                fillColor: 'rgba(53,207,50,1.0)',
+                fillColor: 'rgba(207,82,182,1.0)',
                 interactive: true,
             }
                     break;
@@ -778,7 +778,7 @@
                 weight: 1,
                 fill: true,
                 fillOpacity: 1,
-                fillColor: 'rgba(47,237,88,1.0)',
+                fillColor: 'rgba(231,66,223,1.0)',
                 interactive: true,
             }
                     break;
@@ -794,7 +794,7 @@
                 weight: 1,
                 fill: true,
                 fillOpacity: 1,
-                fillColor: 'rgba(225,23,127,1.0)',
+                fillColor: 'rgba(210,221,114,1.0)',
                 interactive: true,
             }
                     break;
@@ -810,7 +810,7 @@
                 weight: 1,
                 fill: true,
                 fillOpacity: 1,
-                fillColor: 'rgba(201,119,213,1.0)',
+                fillColor: 'rgba(189,98,238,1.0)',
                 interactive: true,
             }
                     break;
@@ -826,7 +826,7 @@
                 weight: 1,
                 fill: true,
                 fillOpacity: 1,
-                fillColor: 'rgba(209,61,182,1.0)',
+                fillColor: 'rgba(215,47,193,1.0)',
                 interactive: true,
             }
                     break;
@@ -842,7 +842,7 @@
                 weight: 1,
                 fill: true,
                 fillOpacity: 1,
-                fillColor: 'rgba(160,234,62,1.0)',
+                fillColor: 'rgba(60,185,238,1.0)',
                 interactive: true,
             }
                     break;
@@ -858,7 +858,7 @@
                 weight: 1,
                 fill: true,
                 fillOpacity: 1,
-                fillColor: 'rgba(207,118,198,1.0)',
+                fillColor: 'rgba(115,157,208,1.0)',
                 interactive: true,
             }
                     break;
@@ -874,7 +874,7 @@
                 weight: 1,
                 fill: true,
                 fillOpacity: 1,
-                fillColor: 'rgba(240,210,79,1.0)',
+                fillColor: 'rgba(193,238,129,1.0)',
                 interactive: true,
             }
                     break;
@@ -890,7 +890,7 @@
                 weight: 1,
                 fill: true,
                 fillOpacity: 1,
-                fillColor: 'rgba(40,238,129,1.0)',
+                fillColor: 'rgba(55,200,96,1.0)',
                 interactive: true,
             }
                     break;
@@ -906,7 +906,7 @@
                 weight: 1,
                 fill: true,
                 fillOpacity: 1,
-                fillColor: 'rgba(122,231,213,1.0)',
+                fillColor: 'rgba(45,210,155,1.0)',
                 interactive: true,
             }
                     break;
@@ -922,7 +922,7 @@
                 weight: 1,
                 fill: true,
                 fillOpacity: 1,
-                fillColor: 'rgba(39,196,239,1.0)',
+                fillColor: 'rgba(66,47,238,1.0)',
                 interactive: true,
             }
                     break;
@@ -938,7 +938,7 @@
                 weight: 1,
                 fill: true,
                 fillOpacity: 1,
-                fillColor: 'rgba(211,123,120,1.0)',
+                fillColor: 'rgba(116,219,61,1.0)',
                 interactive: true,
             }
                     break;
@@ -954,7 +954,7 @@
                 weight: 1,
                 fill: true,
                 fillOpacity: 1,
-                fillColor: 'rgba(212,62,104,1.0)',
+                fillColor: 'rgba(79,21,239,1.0)',
                 interactive: true,
             }
                     break;
@@ -970,7 +970,7 @@
                 weight: 1,
                 fill: true,
                 fillOpacity: 1,
-                fillColor: 'rgba(144,116,227,1.0)',
+                fillColor: 'rgba(19,216,167,1.0)',
                 interactive: true,
             }
                     break;
@@ -986,7 +986,7 @@
                 weight: 1,
                 fill: true,
                 fillOpacity: 1,
-                fillColor: 'rgba(195,85,238,1.0)',
+                fillColor: 'rgba(155,56,225,1.0)',
                 interactive: true,
             }
                     break;
@@ -1002,7 +1002,7 @@
                 weight: 1,
                 fill: true,
                 fillOpacity: 1,
-                fillColor: 'rgba(89,237,131,1.0)',
+                fillColor: 'rgba(94,216,214,1.0)',
                 interactive: true,
             }
                     break;
@@ -1018,7 +1018,7 @@
                 weight: 1,
                 fill: true,
                 fillOpacity: 1,
-                fillColor: 'rgba(85,221,16,1.0)',
+                fillColor: 'rgba(238,165,101,1.0)',
                 interactive: true,
             }
                     break;
@@ -1034,7 +1034,7 @@
                 weight: 1,
                 fill: true,
                 fillOpacity: 1,
-                fillColor: 'rgba(107,165,231,1.0)',
+                fillColor: 'rgba(29,72,230,1.0)',
                 interactive: true,
             }
                     break;
@@ -1050,7 +1050,7 @@
                 weight: 1,
                 fill: true,
                 fillOpacity: 1,
-                fillColor: 'rgba(74,230,168,1.0)',
+                fillColor: 'rgba(182,217,77,1.0)',
                 interactive: true,
             }
                     break;
@@ -1066,7 +1066,7 @@
                 weight: 1,
                 fill: true,
                 fillOpacity: 1,
-                fillColor: 'rgba(157,232,132,1.0)',
+                fillColor: 'rgba(61,26,217,1.0)',
                 interactive: true,
             }
                     break;
@@ -1082,7 +1082,7 @@
                 weight: 1,
                 fill: true,
                 fillOpacity: 1,
-                fillColor: 'rgba(236,197,126,1.0)',
+                fillColor: 'rgba(204,114,137,1.0)',
                 interactive: true,
             }
                     break;
@@ -1098,7 +1098,7 @@
                 weight: 1,
                 fill: true,
                 fillOpacity: 1,
-                fillColor: 'rgba(208,28,106,1.0)',
+                fillColor: 'rgba(213,122,158,1.0)',
                 interactive: true,
             }
                     break;
@@ -1114,7 +1114,7 @@
                 weight: 1,
                 fill: true,
                 fillOpacity: 1,
-                fillColor: 'rgba(192,215,98,1.0)',
+                fillColor: 'rgba(91,130,229,1.0)',
                 interactive: true,
             }
                     break;
@@ -1130,7 +1130,7 @@
                 weight: 1,
                 fill: true,
                 fillOpacity: 1,
-                fillColor: 'rgba(143,134,224,1.0)',
+                fillColor: 'rgba(227,163,60,1.0)',
                 interactive: true,
             }
                     break;
@@ -1146,7 +1146,7 @@
                 weight: 1,
                 fill: true,
                 fillOpacity: 1,
-                fillColor: 'rgba(42,158,230,1.0)',
+                fillColor: 'rgba(37,239,142,1.0)',
                 interactive: true,
             }
                     break;
@@ -1162,7 +1162,7 @@
                 weight: 1,
                 fill: true,
                 fillOpacity: 1,
-                fillColor: 'rgba(86,233,69,1.0)',
+                fillColor: 'rgba(217,234,130,1.0)',
                 interactive: true,
             }
                     break;
@@ -1178,7 +1178,7 @@
                 weight: 1,
                 fill: true,
                 fillOpacity: 1,
-                fillColor: 'rgba(14,217,24,1.0)',
+                fillColor: 'rgba(200,87,226,1.0)',
                 interactive: true,
             }
                     break;
@@ -1194,7 +1194,7 @@
                 weight: 1,
                 fill: true,
                 fillOpacity: 1,
-                fillColor: 'rgba(229,204,15,1.0)',
+                fillColor: 'rgba(153,117,227,1.0)',
                 interactive: true,
             }
                     break;
@@ -1210,7 +1210,7 @@
                 weight: 1,
                 fill: true,
                 fillOpacity: 1,
-                fillColor: 'rgba(218,119,185,1.0)',
+                fillColor: 'rgba(213,72,140,1.0)',
                 interactive: true,
             }
                     break;
@@ -1226,7 +1226,7 @@
                 weight: 1,
                 fill: true,
                 fillOpacity: 1,
-                fillColor: 'rgba(200,89,172,1.0)',
+                fillColor: 'rgba(98,240,79,1.0)',
                 interactive: true,
             }
                     break;
@@ -1242,7 +1242,7 @@
                 weight: 1,
                 fill: true,
                 fillOpacity: 1,
-                fillColor: 'rgba(61,214,82,1.0)',
+                fillColor: 'rgba(224,124,187,1.0)',
                 interactive: true,
             }
                     break;
@@ -1258,7 +1258,7 @@
                 weight: 1,
                 fill: true,
                 fillOpacity: 1,
-                fillColor: 'rgba(163,229,40,1.0)',
+                fillColor: 'rgba(193,224,130,1.0)',
                 interactive: true,
             }
                     break;
@@ -1274,7 +1274,7 @@
                 weight: 1,
                 fill: true,
                 fillOpacity: 1,
-                fillColor: 'rgba(193,200,52,1.0)',
+                fillColor: 'rgba(231,101,235,1.0)',
                 interactive: true,
             }
                     break;
@@ -1290,7 +1290,7 @@
                 weight: 1,
                 fill: true,
                 fillOpacity: 1,
-                fillColor: 'rgba(161,213,28,1.0)',
+                fillColor: 'rgba(17,27,213,1.0)',
                 interactive: true,
             }
                     break;
@@ -1306,7 +1306,7 @@
                 weight: 1,
                 fill: true,
                 fillOpacity: 1,
-                fillColor: 'rgba(67,207,195,1.0)',
+                fillColor: 'rgba(56,186,209,1.0)',
                 interactive: true,
             }
                     break;
@@ -1322,7 +1322,7 @@
                 weight: 1,
                 fill: true,
                 fillOpacity: 1,
-                fillColor: 'rgba(97,106,239,1.0)',
+                fillColor: 'rgba(75,72,231,1.0)',
                 interactive: true,
             }
                     break;
@@ -1338,7 +1338,7 @@
                 weight: 1,
                 fill: true,
                 fillOpacity: 1,
-                fillColor: 'rgba(171,93,230,1.0)',
+                fillColor: 'rgba(93,230,173,1.0)',
                 interactive: true,
             }
                     break;
@@ -1354,7 +1354,7 @@
                 weight: 1,
                 fill: true,
                 fillOpacity: 1,
-                fillColor: 'rgba(58,29,203,1.0)',
+                fillColor: 'rgba(212,179,61,1.0)',
                 interactive: true,
             }
                     break;
@@ -1370,7 +1370,7 @@
                 weight: 1,
                 fill: true,
                 fillOpacity: 1,
-                fillColor: 'rgba(135,84,237,1.0)',
+                fillColor: 'rgba(240,227,40,1.0)',
                 interactive: true,
             }
                     break;
@@ -1386,7 +1386,7 @@
                 weight: 1,
                 fill: true,
                 fillOpacity: 1,
-                fillColor: 'rgba(61,84,227,1.0)',
+                fillColor: 'rgba(200,30,152,1.0)',
                 interactive: true,
             }
                     break;
@@ -1402,7 +1402,7 @@
                 weight: 1,
                 fill: true,
                 fillOpacity: 1,
-                fillColor: 'rgba(127,210,109,1.0)',
+                fillColor: 'rgba(39,64,223,1.0)',
                 interactive: true,
             }
                     break;
@@ -1570,16 +1570,16 @@
             sel_Filtrodereaverde.id = "sel_Filtrodereaverde";
             var Filtrodereaverde_options_str = "<option value='' unselected></option>";
             sel_Filtrodereaverde.onchange = function(){filterFunc()};
-            Filtrodereaverde_options_str  += '<option value="Chorotega">Chorotega</option>';
-            Filtrodereaverde_options_str  += '<option value="Las Palmas">Las Palmas</option>';
-            Filtrodereaverde_options_str  += '<option value="Los Ángeles">Los Ángeles</option>';
             Filtrodereaverde_options_str  += '<option value="Mercado Cañas">Mercado Cañas</option>';
             Filtrodereaverde_options_str  += '<option value="Parque Central">Parque Central</option>';
+            Filtrodereaverde_options_str  += '<option value="Parque Chorotega">Parque Chorotega</option>';
             Filtrodereaverde_options_str  += '<option value="Parque Colón">Parque Colón</option>';
             Filtrodereaverde_options_str  += '<option value="Parque INVU">Parque INVU</option>';
+            Filtrodereaverde_options_str  += '<option value="Parque Tres Marías">Parque Tres Marías</option>';
+            Filtrodereaverde_options_str  += '<option value="Parque las Palmas">Parque las Palmas</option>';
+            Filtrodereaverde_options_str  += '<option value="Parque los Ángeles">Parque los Ángeles</option>';
             Filtrodereaverde_options_str  += '<option value="Polideportivo">Polideportivo</option>';
             Filtrodereaverde_options_str  += '<option value="Separador de vía">Separador de vía</option>';
-            Filtrodereaverde_options_str  += '<option value="Tres Marías">Tres Marías</option>';
             sel_Filtrodereaverde.innerHTML = Filtrodereaverde_options_str;
             div_Filtrodereaverde.appendChild(sel_Filtrodereaverde);
             var lab_Filtrodereaverde = document.createElement('div');
